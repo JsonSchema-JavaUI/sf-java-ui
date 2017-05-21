@@ -1,0 +1,35 @@
+{
+  "name": "demo",
+  "authors": [
+    "Saif Jerbi <m.jerbi.saif@gmail.com>"
+  ],
+  "directory": "src/main/resources/static",
+  "appPath": "src/main/resources/static",
+  "description": "this is a demo application using angular schema form and asf java ui library",
+  "main": "index.html",
+  "keywords": [
+    "angular",
+    "schema",
+    "form",
+    "asf",
+    "java",
+    "ui",
+    "java",
+    "angular"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-schema-form": "^0.8.13",
+    "angular-schema-form-bootstrap": "^0.2.0",
+    "angular": "^1.6.4",
+    "bootstrap": "^3.3.7"
+  }
+}
