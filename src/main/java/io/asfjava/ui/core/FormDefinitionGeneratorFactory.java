@@ -1,6 +1,7 @@
 package io.asfjava.ui.core;
 
-import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 
@@ -21,7 +22,7 @@ public final class FormDefinitionGeneratorFactory {
 		return INSTANCE;
 	}
 
-	private static final HashMap<String, FormDefinitionGenerator> GENERATORS = new HashMap<>();
+	private static final Map<String, FormDefinitionGenerator> GENERATORS = new ConcurrentHashMap();
 
 	private static FormDefinitionGeneratorFactory INSTANCE;
 
