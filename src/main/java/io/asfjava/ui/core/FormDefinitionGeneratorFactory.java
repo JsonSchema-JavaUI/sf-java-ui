@@ -22,7 +22,7 @@ public final class FormDefinitionGeneratorFactory {
 		return INSTANCE;
 	}
 
-	private static final Map<String, FormDefinitionGenerator> GENERATORS = new ConcurrentHashMap();
+	private static final Map<String, FormDefinitionGenerator> GENERATORS = new ConcurrentHashMap<>();
 
 	private static FormDefinitionGeneratorFactory INSTANCE;
 
