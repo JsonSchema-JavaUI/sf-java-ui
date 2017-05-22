@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-final class DefaultGenerator implements FormDefinitionGenerator {
+public final class DefaultGenerator implements FormDefinitionGenerator {
 	@Override
 	public void generate(ObjectNode node, Field field) {
 
@@ -15,4 +15,6 @@ final class DefaultGenerator implements FormDefinitionGenerator {
 		return "";
 	}
 
+	public DefaultGenerator() {
+	}
 }

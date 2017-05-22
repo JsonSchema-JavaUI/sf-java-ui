@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.asfjava.ui.core.form.TextField;
 
-class TextFieldGenerator implements FormDefinitionGenerator {
+public class TextFieldGenerator implements FormDefinitionGenerator {
 
 	@Override
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
@@ -46,4 +46,6 @@ class TextFieldGenerator implements FormDefinitionGenerator {
 		return TextField.class.getName();
 	}
 
+	public TextFieldGenerator() {
+	}
 }
