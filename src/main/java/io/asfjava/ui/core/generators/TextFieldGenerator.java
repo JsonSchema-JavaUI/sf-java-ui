@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import io.asfjava.ui.core.FormDefinitionGenerator;
 import io.asfjava.ui.core.form.TextField;
 
 class TextFieldGenerator implements FormDefinitionGenerator {
@@ -40,6 +39,11 @@ class TextFieldGenerator implements FormDefinitionGenerator {
 		if (readOnly) {
 			fieldFormDefinition.put("readonly", readOnly);
 		}
+	}
+
+	@Override
+	public String getAnnoation() {
+		return TextField.class.getName();
 	}
 
 }

@@ -1,16 +1,17 @@
 package io.asfjava.ui.core;
 
-import java.lang.annotation.Annotation;
 import java.util.HashMap;
+
+import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 
 public final class FormDefinitionGeneratorFactory {
 
-	public FormDefinitionGenerator getGenerator(Annotation annotation) {
-		return GENERATORS.get(annotation.annotationType().getName());
+	public FormDefinitionGenerator getGenerator(String annotationName) {
+		return GENERATORS.get(annotationName);
 	}
 
-	void register(Annotation annotation, FormDefinitionGenerator generator) {
-		GENERATORS.put(annotation.annotationType().getName(), generator);
+	void register(String annotationName, FormDefinitionGenerator generator) {
+		GENERATORS.put(annotationName, generator);
 	}
 
 	public static FormDefinitionGeneratorFactory getInstance() {

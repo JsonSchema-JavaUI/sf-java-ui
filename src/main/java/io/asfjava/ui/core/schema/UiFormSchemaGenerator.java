@@ -14,8 +14,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
-import io.asfjava.ui.core.FormDefinitionGenerator;
 import io.asfjava.ui.core.FormDefinitionGeneratorFactory;
+import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 import io.asfjava.ui.dto.UiForm;
 
 public final class UiFormSchemaGenerator {
@@ -44,7 +44,8 @@ public final class UiFormSchemaGenerator {
 
 	private JsonNode buildFieldDefinition(Field field, Annotation annotation, ObjectMapper mapper) {
 		ObjectNode fieldFormDefinition = mapper.createObjectNode();
-		FormDefinitionGenerator generator = FormDefinitionGeneratorFactory.getInstance().getGenerator(annotation);
+		FormDefinitionGenerator generator = FormDefinitionGeneratorFactory.getInstance()
+				.getGenerator(annotation.getClass().getName());
 		generator.generate(fieldFormDefinition, field);
 		return fieldFormDefinition;
 
