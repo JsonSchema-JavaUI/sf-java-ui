@@ -10,12 +10,6 @@ import io.asfjava.ui.schema.interfaces.SchemaGenerator;
 
 public final class TextFieldGenerator implements SchemaGenerator {
 
-	private static SchemaGenerator textFieldGenerator = new TextFieldGenerator();
-
-	private TextFieldGenerator() {
-
-	}
-
 	@Override
 	public ArrayNode generate(ObjectNode fieldFormDefinition, ArrayNode formDefinition, Field field) {
 		TextField annotation = field.getAnnotation(TextField.class);
@@ -49,10 +43,6 @@ public final class TextFieldGenerator implements SchemaGenerator {
 
 		formDefinition.add(fieldFormDefinition);
 		return formDefinition;
-	}
-
-	public static SchemaGenerator getTextFieldGenerator() {
-		return textFieldGenerator;
 	}
 
 }

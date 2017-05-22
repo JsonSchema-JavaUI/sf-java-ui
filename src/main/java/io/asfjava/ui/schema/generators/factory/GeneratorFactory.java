@@ -1,6 +1,5 @@
 package io.asfjava.ui.schema.generators.factory;
 
-import java.security.GeneralSecurityException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.asfjava.ui.schema.generators.DefaultGenerator;
@@ -10,14 +9,16 @@ public class GeneratorFactory {
 
 	private static ConcurrentHashMap<String, SchemaGenerator> generators = new ConcurrentHashMap<>();
 
-	public static SchemaGenerator getGenerator(Class genertor) {
+	private static DefaultGenerator defaultGenerator = new DefaultGenerator();
+
+	public static SchemaGenerator getGenerator(Class<? extends SchemaGenerator>  genertor) {
 		if (!generators.contains(genertor.getName())) {
-			return DefaultGenerator.getDefaultGenerator();
+			return defaultGenerator;
 		}
 		return generators.get(genertor.getName());
 	}
 
-	public static void registerDriver(Class genertor, SchemaGenerator schemaGenerator) {
+	public static void registerDriver(Class<? extends SchemaGenerator>  genertor, SchemaGenerator schemaGenerator) {
 		if (genertor != null && schemaGenerator != null) {
 			generators.put(genertor.getName(), schemaGenerator);
 		}
