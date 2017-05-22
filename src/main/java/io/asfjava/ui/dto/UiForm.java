@@ -1,4 +1,4 @@
-package io.asfjava.ui.schema.dto;
+package io.asfjava.ui.dto;
 
 import java.io.Serializable;
 

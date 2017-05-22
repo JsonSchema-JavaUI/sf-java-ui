@@ -1,18 +1,22 @@
-package io.asfjava.ui.schema;
+package io.asfjava.ui.core.schema;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
-import io.asfjava.ui.form.TextField;
-import io.asfjava.ui.schema.dto.UiForm;
+import io.asfjava.ui.core.FormDefinitionGenerator;
+import io.asfjava.ui.core.FormDefinitionGeneratorFactory;
+import io.asfjava.ui.dto.UiForm;
 
 public final class UiFormSchemaGenerator {
 
@@ -25,45 +29,25 @@ public final class UiFormSchemaGenerator {
 
 		ArrayNode formDefinition = mapper.createArrayNode();
 
-		Arrays.asList(formDto.getDeclaredFields()).stream().filter(field -> field.isAnnotationPresent(TextField.class))
+		Arrays.asList(formDto.getDeclaredFields()).stream()
 				.forEach(field -> buildFormDefinition(mapper, formDefinition, field));
 
 		return new UiForm(schema, formDefinition);
 	}
 
 	private void buildFormDefinition(ObjectMapper mapper, ArrayNode formDefinition, Field field) {
+		List<Annotation> annoations = Arrays.asList(field.getAnnotations());
+		for (Annotation annotation : annoations) {
+			formDefinition.add(buildFieldDefinition(field, annotation, mapper));
+		}
+	}
+
+	private JsonNode buildFieldDefinition(Field field, Annotation annotation, ObjectMapper mapper) {
 		ObjectNode fieldFormDefinition = mapper.createObjectNode();
-		TextField annotation = field.getAnnotation(TextField.class);
+		FormDefinitionGenerator generator = FormDefinitionGeneratorFactory.getInstance().getGenerator(annotation);
+		generator.generate(fieldFormDefinition, field);
+		return fieldFormDefinition;
 
-		fieldFormDefinition.put("key", field.getName());
-		// fieldFormDefinition.put("type", annotation.value().getLayout());
-
-		String description = annotation.description();
-		if (!description.isEmpty()) {
-			fieldFormDefinition.put("description", description);
-		}
-
-		String placeHolder = annotation.placeHolder();
-		if (!placeHolder.isEmpty()) {
-			fieldFormDefinition.put("placeholder", placeHolder);
-		}
-
-		boolean noTitle = annotation.noTitle();
-		if (noTitle) {
-			fieldFormDefinition.put("notitle", noTitle);
-		}
-
-		String validationMessage = annotation.validationMessage();
-		if (!validationMessage.isEmpty()) {
-			fieldFormDefinition.put("validationMessage", validationMessage);
-		}
-
-		boolean readOnly = annotation.readOnly();
-		if (readOnly) {
-			fieldFormDefinition.put("readonly", readOnly);
-		}
-
-		formDefinition.add(fieldFormDefinition);
 	}
 
 	public static UiFormSchemaGenerator get() {
