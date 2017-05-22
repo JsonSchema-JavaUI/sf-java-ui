@@ -45,7 +45,7 @@ public final class UiFormSchemaGenerator {
 	private JsonNode buildFieldDefinition(Field field, Annotation annotation, ObjectMapper mapper) {
 		ObjectNode fieldFormDefinition = mapper.createObjectNode();
 		FormDefinitionGenerator generator = FormDefinitionGeneratorFactory.getInstance()
-				.getGenerator(annotation.getClass().getName());
+				.getGenerator(annotation.annotationType().getName());
 		generator.generate(fieldFormDefinition, field);
 		return fieldFormDefinition;
 
