@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import io.asfjava.ui.demo.renderer.UiDemoRenderer;
-import io.asfjava.ui.schema.dto.UiForm;
+import io.asfjava.ui.dto.UiForm;
 
 /**
  * REST controller for managing Ui.

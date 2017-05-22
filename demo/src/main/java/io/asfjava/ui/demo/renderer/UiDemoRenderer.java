@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import io.asfjava.ui.core.schema.UiFormSchemaGenerator;
 import io.asfjava.ui.demo.screen.DemoForm;
-import io.asfjava.ui.schema.UiFormSchemaGenerator;
-import io.asfjava.ui.schema.dto.UiForm;
+import io.asfjava.ui.dto.UiForm;
 
 @Service
 public class UiDemoRenderer {

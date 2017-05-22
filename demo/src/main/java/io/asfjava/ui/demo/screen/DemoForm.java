@@ -3,7 +3,7 @@ package io.asfjava.ui.demo.screen;
 import java.io.Serializable;
 import java.util.Date;
 
-import io.asfjava.ui.form.TextField;
+import io.asfjava.ui.core.form.TextField;
 
 public class DemoForm implements Serializable {
 
