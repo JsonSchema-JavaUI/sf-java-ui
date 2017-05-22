@@ -7,7 +7,7 @@ import org.reflections.Reflections;
 import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 
 final class GeneratorFactoryLoader {
-	private static final String PACKAGESCAN = "io.asfjava.ui.schema.generators";
+	private static final String PACKAGESCAN = "io.asfjava.ui.core.generators";
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
 
 	void load() {
