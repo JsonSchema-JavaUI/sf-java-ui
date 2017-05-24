@@ -1,4 +1,4 @@
-package io.asfjava.ui.form;
+package io.asfjava.ui.core.form;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

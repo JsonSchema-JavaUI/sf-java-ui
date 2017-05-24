@@ -25,7 +25,7 @@ public final class UiFormSchemaGenerator {
 	public UiForm generate(Class<? extends Serializable> formDto) throws JsonMappingException {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonSchemaGenerator schemaGen = new JsonSchemaGenerator(mapper, new CustomSchemaFactoryWrapper());
-		JsonSchema schema = schemaGen.generateSchema(formDto);
+ 		JsonSchema schema = schemaGen.generateSchema(formDto);
 
 		ArrayNode formDefinition = mapper.createArrayNode();
 
