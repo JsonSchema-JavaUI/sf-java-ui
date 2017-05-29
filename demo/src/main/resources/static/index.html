@@ -1,24 +1,22 @@
 <html>
   <head>
-    <script src="../bower_components/angular/angular.min.js"></script>
+	<script src="../bower_components/angular/angular.min.js"></script>
     <script src="../bower_components/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="../bower_components/tv4/tv4.js"></script>
     <script src="../bower_components/objectpath/lib/ObjectPath.js"></script>
     <script src="../bower_components/angular-schema-form/dist/schema-form.min.js"></script>
     <script src="../bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min.js"></script>
+    <script src="../bower_components/lodash/lodash.js"></script>
 
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/main.css">
+<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
     <script>
 
-      angular.module('test', ["schemaForm"]).controller('FormController', function($scope,$http) {
+      angular.module('demoApp', ["schemaForm"]).controller('DemoAppController', function($scope,$http) {
     	
     	$http.get('/api/ui').then(successCallback, errorCallback);
     	function successCallback(response){
-    		console.log(response.data.schema);
 			$scope.schema = response.data.schema;
-			console.log(response.data.form);
 			$scope.form = response.data.form;
 			$scope.model = {};
 	        $scope.debug = {schema: angular.copy($scope.schema), form: angular.copy($scope.form)};
@@ -32,11 +30,11 @@
     <title>Testing ASF Java UI</title>
   </head>
 
-  <body ng-app="test">
-    <div class="container-fluid" ng-controller="FormController">
+  <body ng-app="demoApp">
+    <div class="container-fluid" ng-controller="DemoAppController">
 
         <div class="col-sm-6 form">
-          <form sf-schema="schema" sf-model="model"></form>
+          <form sf-schema="schema" sf-form="form" sf-model="model"></form>
         </div>
 
         <div class="col-sm-6 debug">
