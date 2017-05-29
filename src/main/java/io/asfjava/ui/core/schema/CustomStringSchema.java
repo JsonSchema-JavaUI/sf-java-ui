@@ -1,6 +1,5 @@
 package io.asfjava.ui.core.schema;
 
-import java.awt.List;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +9,7 @@ import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
 import io.asfjava.ui.core.form.ComboBox;
+import io.asfjava.ui.core.form.TextArea;
 import io.asfjava.ui.core.form.TextField;
 
 class CustomStringSchema extends StringSchema {
@@ -29,6 +29,10 @@ class CustomStringSchema extends StringSchema {
 			this.setTitle(Comboannotation.title());
 			Set<String> enums = new HashSet<>(Arrays.asList(Comboannotation.values()));
 			this.setEnums(enums);
+		}
+		TextArea textArea = beanProperty.getAnnotation(TextArea.class);
+		if (textArea != null) {
+			this.setTitle(textArea.title());
 		}
 	}
 

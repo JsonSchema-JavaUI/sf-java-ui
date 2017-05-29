@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public interface FormDefinitionGenerator {
 
-	void generate(ObjectNode node, Field field);
+	void generate(ObjectNode fieldFormDefinition, Field field);
 
 	String getAnnoation();
 }

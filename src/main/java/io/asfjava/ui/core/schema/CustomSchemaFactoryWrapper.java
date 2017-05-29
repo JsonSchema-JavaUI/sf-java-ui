@@ -7,7 +7,7 @@ import com.fasterxml.jackson.module.jsonSchema.factories.WrapperFactory;
 
 class CustomSchemaFactoryWrapper extends SchemaFactoryWrapper {
 
-	private static class ASFSchemaFactoryWrapperFactory extends WrapperFactory {
+	private static class SFSchemaFactoryWrapperFactory extends WrapperFactory {
 		@Override
 		public SchemaFactoryWrapper getWrapper(SerializerProvider p) {
 			SchemaFactoryWrapper wrapper = new CustomSchemaFactoryWrapper();
@@ -29,7 +29,7 @@ class CustomSchemaFactoryWrapper extends SchemaFactoryWrapper {
 	};
 
 	CustomSchemaFactoryWrapper() {
-		super(new ASFSchemaFactoryWrapperFactory());
+		super(new SFSchemaFactoryWrapperFactory());
 		schemaProvider = new CustomJsonSchemaFactory();
 	}
 }
