@@ -62,12 +62,11 @@
 						</goals>
 						<configuration>
 							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
 					<execution>
 						<id>post-unit-test</id>
-						<phase>test</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
