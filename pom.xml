@@ -82,7 +82,7 @@
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.3.0</version>
 				<configuration>
-					<repoToken>repoToken</repoToken>
+					<repoToken>coverallsApiKey</repoToken>
 					<jacocoReports>
 						<jacocoReport>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReport>
 					</jacocoReports>
