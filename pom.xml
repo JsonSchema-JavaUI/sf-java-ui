@@ -2,12 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.asfjava.ui.editor</groupId>
-	<artifactId>asf-java-ui</artifactId>
+	<groupId>io.sfjava.ui</groupId>
+	<artifactId>sf-java-ui</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>asf-ui</name>
+	<name>sf-java-ui</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -82,7 +82,7 @@
 				<artifactId>coveralls-maven-plugin</artifactId>
 				<version>4.3.0</version>
 				<configuration>
-					<repoToken>coverallsApiKey</repoToken>
+					<repoToken>NkRikGGVMCbI71H1WBTh5fte1C4AEzOyo</repoToken>
 					<jacocoReports>
 						<jacocoReport>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReport>
 					</jacocoReports>

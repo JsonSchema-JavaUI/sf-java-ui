@@ -36,8 +36,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.asfjava.ui.editor</groupId>
-			<artifactId>asf-java-ui</artifactId>
+			<groupId>io.sfjava.ui</groupId>
+			<artifactId>sf-java-ui</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
