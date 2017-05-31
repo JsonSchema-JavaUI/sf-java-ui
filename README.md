@@ -158,7 +158,7 @@ SF Java UI uses GitHub’s integrated issue tracking system to record bugs and f
 
   - If the issue doesn’t already exist, [create a new issue](https://github.com/JsonSchema-JavaUI/sf-java-ui/issues/new).
 
-  - Please provide as much information as possible with the issue report, we like to know the version of Spring Boot that you are using, as well as your Operating System and JVM version.
+  - Please provide as much information as possible with the issue report, we like to know the version of SF Java UI that you are using and the Json Schema Form version as well as your Operating System and JVM version.
 
   - If you need to paste code, or include a stack trace use Markdown \``` escapes before and after your text.
 
