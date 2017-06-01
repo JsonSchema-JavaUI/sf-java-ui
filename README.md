@@ -142,7 +142,7 @@ Put the code below into your view.html:
 Add the angular controller below:
 
 ```javascript
-angular.module('demoApp', ["schemaForm"]).controller('DemoAppController', function($scope,$http) {
+angular.module('MyModule', ["schemaForm"]).controller('FormController', function($scope,$http) {
   $http.get('/api/ui').then(successCallback, errorCallback);
   function successCallback(response){
     $scope.schema = response.data.schema;
