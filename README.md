@@ -36,6 +36,11 @@ First, add the SF Java UI library to your java web project:
   <version>RELEASE</version>
 </dependency>
 ```
+Add the oss repository:
+```xml
+The official version Not yet deployed
+```
+
 Create a new Rest Web Service. (example using spring)
 
 ```Java
