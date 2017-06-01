@@ -12,11 +12,7 @@
 
 **Actual behavior:** [What actually happens]
 
-**Reproduces how often:** [What percentage of the time does it reproduce?]
-
 ### Versions
-
-You can get this information from copy and pasting the output of `atom --version` and `apm --version` from the command line. Also, please include the OS and what version of the OS you're running.
 
 ### Additional Information
 
