@@ -4,23 +4,45 @@
 
 	<groupId>io.sfjava.ui</groupId>
 	<artifactId>sf-java-ui</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1.alpha</version>
 	<packaging>jar</packaging>
 
 	<name>sf-java-ui</name>
-	<url>http://maven.apache.org</url>
+	<url>https://github.com/JsonSchema-JavaUI/sf-java-ui</url>
+	<description>Json Schema Form java based library allow developers to define schema and form using field annotations </description>
+	<organization>
+		<name>JsonSchema-JavaUI</name>
+		<url>https://github.com/JsonSchema-JavaUI</url>
+	</organization>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/JsonSchema-JavaUI/sf-java-ui/issues</url>
+	</issueManagement>
+
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/JsonSchema-JavaUI/sf-java-ui</url>
+		<connection>scm:git:git://github.com/JsonSchema-JavaUI/sf-java-ui.git</connection>
+		<developerConnection>scm:git:git@github.com:JsonSchema-JavaUI/sf-java-ui.git</developerConnection>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
@@ -90,4 +112,12 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>bintray-jsonschema-javaui-SF-Java-UI</id>
+			<name>jsonschema-javaui-SF-Java-UI</name>
+			<url>https://api.bintray.com/maven/jsonschema-javaui/SF-Java-UI/sf-java-ui/;publish=1</url>
+		</repository>
+	</distributionManagement>
+
 </project>
