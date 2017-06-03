@@ -6,6 +6,7 @@ import io.asfjava.ui.core.form.ComboBox;
 import io.asfjava.ui.core.form.TextArea;
 import io.asfjava.ui.core.form.TextField;
 import io.asfjava.ui.core.form.Password;
+import io.asfjava.ui.core.form.Number;
 
 public class DemoForm implements Serializable {
 
@@ -14,6 +15,9 @@ public class DemoForm implements Serializable {
 
 	@TextField(title = "Last Name", placeHolder = "Your last name")
 	private String lastName;
+	
+	@Number(title = "Phone Number", placeHolder = "Your phone number", description = "This is a number")
+	private Integer number;
 	
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
 	private String password;
@@ -42,6 +46,14 @@ public class DemoForm implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
