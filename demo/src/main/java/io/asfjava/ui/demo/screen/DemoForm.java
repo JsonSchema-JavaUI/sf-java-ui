@@ -3,6 +3,7 @@ package io.asfjava.ui.demo.screen;
 import java.io.Serializable;
 
 import io.asfjava.ui.core.form.ComboBox;
+import io.asfjava.ui.core.form.RadioBox;
 import io.asfjava.ui.core.form.TextArea;
 import io.asfjava.ui.core.form.TextField;
 
@@ -16,6 +17,10 @@ public class DemoForm implements Serializable {
 
 	@ComboBox(title = "Gender", values = { "Male", "Female" })
 	private String gender;
+	
+	
+	@RadioBox(title = "Civil State" , titleMap = CivilStateTitelsMap.class)
+	private String civilState;
 
 	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea")
 	private String address;
@@ -46,6 +51,14 @@ public class DemoForm implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	
+	public String getCivilState() {
+		return civilState;
+	}
+
+	public void setCivilState(String civilState) {
+		this.civilState = civilState;
 	}
 
 	private static final long serialVersionUID = -5073515619469444978L;
