@@ -25,6 +25,7 @@ class CustomStringSchema extends StringSchema {
 		if (annotation != null) {
 			// this.setLayout(annotation.value().toString());
 			this.setTitle(annotation.title());
+			this.setPattern(annotation.pattern());
 		}
 		ComboBox Comboannotation = beanProperty.getAnnotation(ComboBox.class);
 		if (Comboannotation != null) {

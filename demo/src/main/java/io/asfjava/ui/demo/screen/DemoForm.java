@@ -17,7 +17,11 @@ public class DemoForm implements Serializable {
 	@TextField(title = "Last Name", placeHolder = "Your last name")
 	private String lastName;
 	
-	@Number(title = "Phone Number", placeHolder = "Your phone number", description = "This is a number")
+	@TextField(title = "eMail",placeHolder = "Your email", pattern ="^\\S+@\\S+$", validationMessage="Your mail must be in this format jhondoe@example.com", description="This is Text Field with pattern and validation message"
+)
+	private String email;
+	
+	@Number(title = "Number of children", placeHolder = "Number of children", description = "This is a number")
 	private Integer number;
 	
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
@@ -47,6 +51,13 @@ public class DemoForm implements Serializable {
 		return lastName;
 	}
 
+	public void setEmail(String eMail) {
+		this.email = eMail;
+	}
+
+	public String getEmail() {
+		return email;
+	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}

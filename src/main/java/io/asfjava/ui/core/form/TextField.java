@@ -14,6 +14,8 @@ public @interface TextField {
 	String placeHolder() default "";
 
 	String description() default "";
+	
+	String pattern() default "";
 
 	boolean noTitle() default false;
 
