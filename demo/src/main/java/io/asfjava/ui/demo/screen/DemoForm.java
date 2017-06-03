@@ -21,7 +21,7 @@ public class DemoForm implements Serializable {
 )
 	private String email;
 	
-	@Number(title = "Number of children", placeHolder = "Number of children . 0 if you haven't", description = "This is a number")
+	@Number(title = "Number of children", placeHolder = "Number of children", description = "This is a number")
 	private Integer number;
 	
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
