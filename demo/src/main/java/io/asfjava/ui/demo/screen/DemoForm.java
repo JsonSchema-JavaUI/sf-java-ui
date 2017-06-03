@@ -5,6 +5,7 @@ import java.io.Serializable;
 import io.asfjava.ui.core.form.ComboBox;
 import io.asfjava.ui.core.form.TextArea;
 import io.asfjava.ui.core.form.TextField;
+import io.asfjava.ui.core.form.Password;
 
 public class DemoForm implements Serializable {
 
@@ -13,12 +14,17 @@ public class DemoForm implements Serializable {
 
 	@TextField(title = "Last Name", placeHolder = "Your last name")
 	private String lastName;
-
+	
+	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
+	private String password;
+	
 	@ComboBox(title = "Gender", values = { "Male", "Female" })
 	private String gender;
 
 	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea")
 	private String address;
+	
+
 
 	public String getFirstName() {
 		return firstName;
@@ -36,6 +42,14 @@ public class DemoForm implements Serializable {
 		this.lastName = lastName;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	public String getGender() {
 		return gender;
 	}
