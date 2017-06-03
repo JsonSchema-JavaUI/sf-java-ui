@@ -17,7 +17,7 @@ public class DemoForm implements Serializable {
 	@TextField(title = "Last Name", placeHolder = "Your last name")
 	private String lastName;
 	
-	@Number(title = "Phone Number", placeHolder = "Your phone number", description = "This is a number")
+	@Number(title = "Number of children", placeHolder = "Number of children . 0 if you haven't", description = "This is a number")
 	private Integer number;
 	
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
