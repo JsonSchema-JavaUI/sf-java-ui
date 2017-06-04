@@ -12,39 +12,35 @@ import io.asfjava.ui.core.form.TextField;
 
 public class DemoForm implements Serializable {
 
-	@TextField(title = "First Name", placeHolder = "Your first name", description="This is a description for your first name field")
+	@TextField(title = "First Name", placeHolder = "Your first name", description = "This is a description for your first name field")
 	private String firstName;
 
 	@TextField(title = "Last Name", placeHolder = "Your last name")
 	private String lastName;
-	
-	@TextField(title = "eMail",placeHolder = "Your email", pattern ="^\\S+@\\S+$", validationMessage="Your mail must be in this format jhondoe@example.com", description="This is Text Field with pattern and validation message"
-)
+
+	@TextField(title = "eMail", placeHolder = "Your email", pattern = "^\\S+@\\S+$", validationMessage = "Your mail must be in this format jhondoe@example.com", description = "This is Text Field with pattern and validation message")
 	private String email;
-	
+
 	@Number(title = "Number of children", placeHolder = "Number of children", description = "This is a number")
 	private Integer number;
-	
+
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
 	private String password;
-	
-	@ComboBox(title = "Gender", titleMap=GenderTitleMap.class)
+
+	@ComboBox(title = "Gender", titleMap = GenderTitleMap.class)
 	private String gender;
-	
-	@ComboBox(title= "Currency",values={"euro","dollar"})
+
+	@ComboBox(title = "Currency", values = { "euro", "dollar" })
 	private String currency;
-	
-	
-	@RadioBox(title = "Civil State" , titleMap = CivilStateTitelsMap.class)
+
+	@RadioBox(title = "Civil State", titleMap = CivilStateTitelsMap.class)
 	private String civilState;
 
 	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea")
 	private String address;
-	
-	@CheckBox(title="Color",values={"red","bleu","green"},defaultvalue="red")
-	private String color;
-	
 
+	@CheckBox(title = "Color", values = { "red", "bleu", "green" }, defaultvalue = "red")
+	private String color;
 
 	public String getFirstName() {
 		return firstName;
@@ -65,6 +61,7 @@ public class DemoForm implements Serializable {
 	public String getEmail() {
 		return email;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -76,7 +73,7 @@ public class DemoForm implements Serializable {
 	public void setNumber(Integer number) {
 		this.number = number;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -84,7 +81,7 @@ public class DemoForm implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getGender() {
 		return gender;
 	}
@@ -96,7 +93,7 @@ public class DemoForm implements Serializable {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getCivilState() {
 		return civilState;
 	}

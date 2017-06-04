@@ -15,7 +15,7 @@ public @interface RadioBox {
 	
 	boolean readOnly() default false ;
 
-	Class<? extends TitleMapsAdapter> titleMap();
+	Class<? extends ValuesContainer> titleMap();
 
 
 }

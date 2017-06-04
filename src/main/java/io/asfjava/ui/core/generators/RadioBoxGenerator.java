@@ -1,7 +1,6 @@
 package io.asfjava.ui.core.generators;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -24,15 +23,15 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 		JsonNode radioFieldFormDefinition = ((JsonNode) fieldFormDefinition);
 
 		ObjectMapper radioMapper = new ObjectMapper();
-		
+
 		ArrayNode titlesMap = radioMapper.createArrayNode();
 
-		HashMap<String, Object> map;
-		
+		Map<String, String> map;
+
 		try {
 			map = (annotation.titleMap()).newInstance().getValues();
 
-			for (Map.Entry<String, Object> iterator : map.entrySet()) {
+			for (Map.Entry<String, String> iterator : map.entrySet()) {
 				ObjectNode entry = radioMapper.createObjectNode();
 				entry.put("name", iterator.getKey());
 				entry.putPOJO("value", iterator.getValue());

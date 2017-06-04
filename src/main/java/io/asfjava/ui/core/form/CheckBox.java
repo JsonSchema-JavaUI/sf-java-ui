@@ -20,5 +20,5 @@ public @interface CheckBox {
 
 	String defaultvalue() default "";
 
-	Class<? extends TitleMapsAdapter> titleMap() default TitleMapsAdapter.class;
+	Class<? extends ValuesContainer> titleMap() default ValuesContainer.class;
 }

@@ -1,11 +1,10 @@
 package io.asfjava.ui.core.form;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-import static java.lang.annotation.ElementType.FIELD;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 
 /**
  * {@link ComboBox}This interface represent the ComboBox HTML Tag Title:
@@ -40,6 +39,6 @@ public @interface ComboBox {
 
 	int size() default 1;
 	
-	Class<? extends TitleMapsAdapter> titleMap() default TitleMapsAdapter.class;
+	Class<? extends ValuesContainer> titleMap() default ValuesContainer.class;
 
 }

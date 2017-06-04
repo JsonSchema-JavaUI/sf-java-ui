@@ -1,18 +1,14 @@
 package io.asfjava.ui.core.schema;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
 import io.asfjava.ui.core.form.ComboBox;
+import io.asfjava.ui.core.form.Number;
 import io.asfjava.ui.core.form.Password;
 import io.asfjava.ui.core.form.TextArea;
 import io.asfjava.ui.core.form.TextField;
-import io.asfjava.ui.core.form.Number;
 
 class CustomStringSchema extends StringSchema {
 	@JsonProperty

@@ -1,16 +1,17 @@
 package io.asfjava.ui.demo.screen;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import io.asfjava.ui.core.form.TitleMapsAdapter;
+import io.asfjava.ui.core.form.ValuesContainer;
 
-public class GenderTitleMap extends TitleMapsAdapter {
+public class GenderTitleMap implements ValuesContainer {
 
 	@Override
-	public HashMap<String, Object> getValues() {
-		HashMap<String, Object> values = new HashMap<>();
-		values.put("Male", "M");
-		values.put("Female", "F");
+	public Map<String, String> getValues() {
+		HashMap<String, String> values = new HashMap<>();
+		values.put("Male", "male");
+		values.put("Female", "female");
 		return values;
 	}
 

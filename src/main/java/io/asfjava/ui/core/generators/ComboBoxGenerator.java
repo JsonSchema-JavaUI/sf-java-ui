@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.asfjava.ui.core.form.ComboBox;
-import io.asfjava.ui.core.form.TitleMapsAdapter;
+import io.asfjava.ui.core.form.ValuesContainer;
 
 public class ComboBoxGenerator implements FormDefinitionGenerator {
 
@@ -39,12 +39,12 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 				titlesMap.add(entry);
 			}
 			fieldFormDefinition.set("titleMap", titlesMap);
-		} else if (!annotation.titleMap().equals(TitleMapsAdapter.class)) {
+		} else if (!annotation.titleMap().equals(ValuesContainer.class)) {
 
 			try {
-				Map<String, Object> map = (annotation.titleMap()).newInstance().getValues();
+				Map<String, String> map = (annotation.titleMap()).newInstance().getValues();
 
-				for (Map.Entry<String, Object> iterator : map.entrySet()) {
+				for (Map.Entry<String, String> iterator : map.entrySet()) {
 					ObjectNode entry = comboMapper.createObjectNode();
 					entry.put("name", iterator.getKey());
 					entry.putPOJO("value", iterator.getValue());
