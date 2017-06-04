@@ -4,7 +4,7 @@ import java.util.HashMap;
  
 public class TitleMapsAdapter {
 	
-	public HashMap<String,Object> getPossibleValues(){
+	public Map<String,Object> getPossibleValues(){
 	return null;	
 	}
 		
