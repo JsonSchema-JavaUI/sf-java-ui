@@ -1,13 +1,8 @@
 package io.asfjava.ui.core.form;
 
 import java.util.HashMap;
- 
-public class TitleMapsAdapter {
-	
-	public HashMap<String,Object> getPossibleValues(){
-	return null;	
-	}
-		
-	
 
+public abstract class TitleMapsAdapter {
+
+	public abstract HashMap<String, Object> getPossibleValues();
 }
