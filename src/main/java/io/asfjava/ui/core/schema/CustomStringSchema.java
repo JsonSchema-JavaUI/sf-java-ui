@@ -33,6 +33,12 @@ class CustomStringSchema extends StringSchema {
 			Set<String> enums = new HashSet<>(Arrays.asList(Comboannotation.values()));
 			this.setEnums(enums);
 		}
+		CheckBox checkBoxannotation=beanProperty.getAnnotation(CheckBox.class);
+		if(checkBoxannotation != null)
+		{
+			this.setTitle(checkBoxannotation.title());
+                        this.setDefault(checkBoxannotation.defaultvalue());
+		}
 		TextArea textArea = beanProperty.getAnnotation(TextArea.class);
 		if (textArea != null) {
 			this.setTitle(textArea.title());
