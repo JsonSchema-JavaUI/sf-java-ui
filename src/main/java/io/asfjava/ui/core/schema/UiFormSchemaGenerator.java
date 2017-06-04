@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -25,30 +23,29 @@ public final class UiFormSchemaGenerator {
 	public UiForm generate(Class<? extends Serializable> formDto) throws JsonMappingException {
 		ObjectMapper mapper = new ObjectMapper();
 		JsonSchemaGenerator schemaGen = new JsonSchemaGenerator(mapper, new CustomSchemaFactoryWrapper());
- 		JsonSchema schema = schemaGen.generateSchema(formDto);
+		JsonSchema schema = schemaGen.generateSchema(formDto);
 
 		ArrayNode formDefinition = mapper.createArrayNode();
 
-		Arrays.asList(formDto.getDeclaredFields()).stream()
-				.forEach(field -> buildFormDefinition(mapper, formDefinition, field));
+		Arrays.stream(formDto.getDeclaredFields()).forEach(field -> buildFormDefinition(mapper, formDefinition, field));
 
 		return new UiForm(schema, formDefinition);
 	}
 
-	private void buildFormDefinition(ObjectMapper mapper, ArrayNode formDefinition, Field field) {
-		List<Annotation> annoations = Arrays.asList(field.getAnnotations());
-		for (Annotation annotation : annoations) {
-			formDefinition.add(buildFieldDefinition(field, annotation, mapper));
-		}
+	private void buildFormDefinition(ObjectMapper mapper, ArrayNode formDefinitions, Field field) {
+		Arrays.stream(field.getAnnotations())
+				.forEach(annotation -> buildFieldDefinition(field, annotation, mapper, formDefinitions));
 	}
 
-	private JsonNode buildFieldDefinition(Field field, Annotation annotation, ObjectMapper mapper) {
+	private void buildFieldDefinition(Field field, Annotation annotation, ObjectMapper mapper,
+			ArrayNode formDefinitions) {
 		ObjectNode fieldFormDefinition = mapper.createObjectNode();
 		FormDefinitionGenerator generator = FormDefinitionGeneratorFactory.getInstance()
 				.getGenerator(annotation.annotationType().getName());
-		generator.generate(fieldFormDefinition, field);
-		return fieldFormDefinition;
-
+		if (generator != null) {
+			generator.generate(fieldFormDefinition, field);
+			formDefinitions.add(fieldFormDefinition);
+		}
 	}
 
 	public static UiFormSchemaGenerator get() {
