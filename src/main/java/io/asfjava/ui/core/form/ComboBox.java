@@ -28,7 +28,7 @@ public @interface ComboBox {
 
 	String title();
 
-	String[] values();
+	String[] values() default {};
 
 	boolean autofocus() default false;
 
@@ -39,5 +39,7 @@ public @interface ComboBox {
 	boolean required() default false;
 
 	int size() default 1;
+	
+	Class<? extends TitleMapsAdapter> titleMap() default TitleMapsAdapter.class;
 
 }
