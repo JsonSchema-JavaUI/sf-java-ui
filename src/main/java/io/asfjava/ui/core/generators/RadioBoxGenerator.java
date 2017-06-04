@@ -30,7 +30,7 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 		HashMap<String, Object> map;
 		
 		try {
-			map = (annotation.titleMap()).newInstance().getPossibleValues();
+			map = (annotation.titleMap()).newInstance().getValues();
 
 			for (Map.Entry<String, Object> iterator : map.entrySet()) {
 				ObjectNode entry = radioMapper.createObjectNode();

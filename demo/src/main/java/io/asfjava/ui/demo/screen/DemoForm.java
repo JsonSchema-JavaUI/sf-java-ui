@@ -2,12 +2,13 @@ package io.asfjava.ui.demo.screen;
 
 import java.io.Serializable;
 
+import io.asfjava.ui.core.form.CheckBox;
 import io.asfjava.ui.core.form.ComboBox;
+import io.asfjava.ui.core.form.Number;
+import io.asfjava.ui.core.form.Password;
 import io.asfjava.ui.core.form.RadioBox;
 import io.asfjava.ui.core.form.TextArea;
 import io.asfjava.ui.core.form.TextField;
-import io.asfjava.ui.core.form.Password;
-import io.asfjava.ui.core.form.Number;
 
 public class DemoForm implements Serializable {
 

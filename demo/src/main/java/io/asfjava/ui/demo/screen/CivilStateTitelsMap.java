@@ -7,7 +7,7 @@ import io.asfjava.ui.core.form.TitleMapsAdapter;
 public class CivilStateTitelsMap extends TitleMapsAdapter{
 
 	@Override
-	public HashMap<String,Object> getPossibleValues(){
+	public HashMap<String,Object> getValues(){
 		
 		HashMap<String, Object> myMap = new HashMap<>();
 		

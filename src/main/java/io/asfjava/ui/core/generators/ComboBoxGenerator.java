@@ -42,7 +42,7 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 		} else if (!annotation.titleMap().equals(TitleMapsAdapter.class)) {
 
 			try {
-				Map<String, Object> map = (annotation.titleMap()).newInstance().getPossibleValues();
+				Map<String, Object> map = (annotation.titleMap()).newInstance().getValues();
 
 				for (Map.Entry<String, Object> iterator : map.entrySet()) {
 					ObjectNode entry = comboMapper.createObjectNode();
