@@ -30,8 +30,6 @@ class CustomStringSchema extends StringSchema {
 		ComboBox Comboannotation = beanProperty.getAnnotation(ComboBox.class);
 		if (Comboannotation != null) {
 			this.setTitle(Comboannotation.title());
-			Set<String> enums = new HashSet<>(Arrays.asList(Comboannotation.values()));
-			this.setEnums(enums);
 		}
 		TextArea textArea = beanProperty.getAnnotation(TextArea.class);
 		if (textArea != null) {
