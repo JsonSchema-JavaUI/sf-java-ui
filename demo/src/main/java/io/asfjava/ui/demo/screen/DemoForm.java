@@ -37,6 +37,9 @@ public class DemoForm implements Serializable {
 	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea")
 	private String address;
 	
+	@CheckBox(title="Color",values={"red","bleu","green"},defaultvalue="red")
+	private String color;
+	
 
 
 	public String getFirstName() {
