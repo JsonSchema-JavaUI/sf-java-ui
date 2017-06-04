@@ -27,6 +27,12 @@ class CustomStringSchema extends StringSchema {
 		if (Comboannotation != null) {
 			this.setTitle(Comboannotation.title());
 		}
+		CheckBox checkBoxannotation=beanProperty.getAnnotation(CheckBox.class);
+		if(checkBoxannotation != null)
+		{
+			this.setTitle(checkBoxannotation.title());
+                        this.setDefault(checkBoxannotation.defaultvalue());
+		}
 		TextArea textArea = beanProperty.getAnnotation(TextArea.class);
 		if (textArea != null) {
 			this.setTitle(textArea.title());
