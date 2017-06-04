@@ -27,8 +27,11 @@ public class DemoForm implements Serializable {
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
 	private String password;
 	
-	@ComboBox(title = "Gender", values = { "Male", "Female" })
+	@ComboBox(title = "Gender", titleMap=GenderTitleMap.class)
 	private String gender;
+	
+	@ComboBox(title= "Currency",values={"euro","dollar"})
+	private String currency;
 	
 	
 	@RadioBox(title = "Civil State" , titleMap = CivilStateTitelsMap.class)
