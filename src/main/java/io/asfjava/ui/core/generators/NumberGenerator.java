@@ -12,7 +12,7 @@ public class NumberGenerator implements FormDefinitionGenerator {
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
 		Number annotation = field.getAnnotation(Number.class);
 		fieldFormDefinition.put("key", field.getName());
-		fieldFormDefinition.put("label", annotation.title());
+		fieldFormDefinition.put("title", annotation.title());
 		fieldFormDefinition.put("type", "number");
 
 		String description = annotation.description();

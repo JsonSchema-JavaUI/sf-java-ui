@@ -19,6 +19,8 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("type", "checkboxes");
 		fieldFormDefinition.put("multiple", annotation.multiple());
 		fieldFormDefinition.put("required", annotation.required());
+		fieldFormDefinition.put("title", annotation.title());
+
 		ObjectMapper checkBoxMapper = new ObjectMapper();
 		ArrayNode titlesMap = checkBoxMapper.createArrayNode();
 		String[] checkBoxValues = annotation.values();
@@ -51,7 +53,7 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 			} catch (InstantiationException | IllegalAccessException e) {
 				e.printStackTrace();
 			}
-		}		
+		}
 	}
 
 	@Override
