@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import io.asfjava.ui.core.form.CheckBox;
 import io.asfjava.ui.core.form.ComboBox;
+import io.asfjava.ui.core.form.DatePicker;
 import io.asfjava.ui.core.form.Number;
 import io.asfjava.ui.core.form.Password;
 import io.asfjava.ui.core.form.RadioBox;
@@ -29,6 +30,9 @@ public class DemoForm implements Serializable {
 
 	@ComboBox(title = "Gender", titleMap = GenderTitleMap.class)
 	private String gender;
+	
+	@DatePicker(title = "Birth Date", format = "yyyy-MM-dd")
+	private String birthDate;
 
 	@ComboBox(title = "Currency", values = { "euro", "dollar" })
 	private String currency;
@@ -80,6 +84,14 @@ public class DemoForm implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	public String getGender() {
