@@ -1,9 +1,21 @@
 language: java
 jdk:
   - oraclejdk8
+sudo: false
+install: true
+addons:
+  sonarqube:
+    organization: "your_organization_key"
+    token:
+      secure: SONAR_TOKEN
 install:
   - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - mvn test
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 after_success:
   - mvn coveralls:report
