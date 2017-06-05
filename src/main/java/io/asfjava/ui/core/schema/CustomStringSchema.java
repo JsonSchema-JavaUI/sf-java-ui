@@ -1,8 +1,10 @@
 package io.asfjava.ui.core.schema;
 
 import com.fasterxml.jackson.databind.BeanProperty;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonValueFormat;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
+import io.asfjava.ui.core.form.DatePicker;
 import io.asfjava.ui.core.form.TextField;
 
 class CustomStringSchema extends StringSchema {
@@ -14,6 +16,9 @@ class CustomStringSchema extends StringSchema {
 		if (annotation != null && !annotation.pattern().isEmpty()) {
 			this.setPattern(annotation.pattern());
 		}
+		DatePicker datePicker = beanProperty.getAnnotation(DatePicker.class);
+		if (datePicker != null) {
+			this.setFormat(JsonValueFormat.DATE);
+		}
 	}
-
 }
