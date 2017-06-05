@@ -2,6 +2,8 @@
 Schema Form Java based library allow developers to define schema and form using field annotations.
 
 [![Build Status](https://travis-ci.org/JsonSchema-JavaUI/sf-java-ui.svg?branch=master)](https://travis-ci.org/JsonSchema-JavaUI/sf-java-ui)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=io.sfjava.ui:sf-java-ui)](https://sonarcloud.io/dashboard?id=io.sfjava.ui%3Asf-java-ui)
+[![Technical debt ratio](https://sonarcloud.io/api/badges/measure?key=io.sfjava.ui:sf-java-ui&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard?id=io.sfjava.ui%3Asf-java-ui)
 [![Coverage Status](https://coveralls.io/repos/github/JsonSchema-JavaUI/sf-java-ui/badge.svg?branch=master)](https://coveralls.io/github/JsonSchema-JavaUI/sf-java-ui?branch=master)
 [ ![Download](https://api.bintray.com/packages/jsonschema-javaui/SF-Java-UI/sf-java-ui/images/download.svg) ](https://bintray.com/jsonschema-javaui/SF-Java-UI/sf-java-ui/_latestVersion)
 
