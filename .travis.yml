@@ -12,7 +12,7 @@ install:
   - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
   - mvn test
-  - mvn clean -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io
+  - mvn clean -DskipTests=true org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=json-schema-java-ui -Dsonar.login=0eddfef99ac3f729e1119cc132ffb6fa15e789ea
 cache:
   directories:
     - '$HOME/.m2/repository'
