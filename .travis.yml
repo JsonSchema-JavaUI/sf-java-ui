@@ -7,11 +7,11 @@ addons:
   sonarqube:
     organization: "json-schema-java-ui"
     token:
-      secure: ${env.SONAR_TOKEN}
+      secure: $SONAR_TOKEN
 install:
   - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
-  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=json-schema-java-ui -Dsonar.login=${env.SONAR_TOKEN}
+  - mvn org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarcloud.io -Dsonar.organization=json-schema-java-ui -Dsonar.login=$SONAR_TOKEN
 cache:
   directories:
     - '$HOME/.m2/repository'
