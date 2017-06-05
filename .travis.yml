@@ -7,7 +7,7 @@ addons:
   sonarqube:
     organization: "json-schema-java-ui"
     token:
-      secure: SONAR_TOKEN
+      secure: ${env.SONAR_TOKEN}
 install:
   - mvn test-compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script:
