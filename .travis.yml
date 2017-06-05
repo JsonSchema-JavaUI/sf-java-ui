@@ -5,7 +5,7 @@ sudo: false
 install: true
 addons:
   sonarqube:
-    organization: "your_organization_key"
+    organization: "json-schema-java-ui"
     token:
       secure: SONAR_TOKEN
 install:
