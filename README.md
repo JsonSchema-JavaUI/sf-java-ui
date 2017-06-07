@@ -1,6 +1,7 @@
 # SF JAVA UI
 Schema Form Java based library allow developers to define schema and form using field annotations.
 
+[![Join the chat at https://gitter.im/JsonSchema-JavaUI/sf-java-ui](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JsonSchema-JavaUI/sf-java-ui?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/JsonSchema-JavaUI/sf-java-ui.svg?branch=master)](https://travis-ci.org/JsonSchema-JavaUI/sf-java-ui)
 [![Quality Gate](https://sonarcloud.io/api/badges/gate?key=io.sfjava.ui:sf-java-ui)](https://sonarcloud.io/dashboard?id=io.sfjava.ui%3Asf-java-ui)
 [![Technical debt ratio](https://sonarcloud.io/api/badges/measure?key=io.sfjava.ui:sf-java-ui&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard?id=io.sfjava.ui%3Asf-java-ui)
