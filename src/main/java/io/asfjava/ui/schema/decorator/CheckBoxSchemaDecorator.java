@@ -1,4 +1,4 @@
-package io.asf.java.ui.schema.decorator;
+package io.asfjava.ui.schema.decorator;
 
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;

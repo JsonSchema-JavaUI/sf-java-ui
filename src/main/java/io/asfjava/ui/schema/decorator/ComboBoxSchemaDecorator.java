@@ -1,16 +1,16 @@
-package io.asf.java.ui.schema.decorator;
+package io.asfjava.ui.schema.decorator;
 
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
-import io.asfjava.ui.core.form.TextArea;
+import io.asfjava.ui.core.form.ComboBox;
 
-public class TextAreaSchemaDecorator implements SchemaDecorator {
+public class ComboBoxSchemaDecorator implements SchemaDecorator {
 
 	@Override
 	public void customizeSchema(BeanProperty property, JsonSchema jsonschema) {
-		TextArea annotation = property.getAnnotation(TextArea.class);
+		ComboBox annotation = property.getAnnotation(ComboBox.class);
 		if (annotation != null && annotation.title() != null) {
 			((StringSchema) jsonschema).setTitle(annotation.title());
 		}
@@ -18,7 +18,7 @@ public class TextAreaSchemaDecorator implements SchemaDecorator {
 
 	@Override
 	public String getAnnotation() {
-		return TextArea.class.getName();
+		return ComboBox.class.getName();
 	}
 
 }
