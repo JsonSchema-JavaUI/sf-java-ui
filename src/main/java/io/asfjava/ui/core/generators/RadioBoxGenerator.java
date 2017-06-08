@@ -19,7 +19,7 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("key", field.getName());
 		fieldFormDefinition.put("readOnly", annotation.readOnly());
 		fieldFormDefinition.put("type", "radios");
-		fieldFormDefinition.put("title", annotation.title());
+//		fieldFormDefinition.put("title", annotation.title());
 
 		JsonNode radioFieldFormDefinition = ((JsonNode) fieldFormDefinition);
 

@@ -101,6 +101,16 @@ public class DemoForm implements Serializable {
 	public void setCivilState(String civilState) {
 		this.civilState = civilState;
 	}
+	
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
 
 	private static final long serialVersionUID = -5073515619469444978L;
 }

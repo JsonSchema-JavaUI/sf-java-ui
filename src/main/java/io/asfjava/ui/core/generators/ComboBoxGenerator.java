@@ -23,7 +23,7 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("multiple", annotation.multiple());
 		fieldFormDefinition.put("required", annotation.required());
 		fieldFormDefinition.put("size", annotation.size());
-		fieldFormDefinition.put("title", annotation.title());
+//		fieldFormDefinition.put("title", annotation.title());
 
 		ObjectMapper comboMapper = new ObjectMapper();
 		ArrayNode titlesMap = comboMapper.createArrayNode();

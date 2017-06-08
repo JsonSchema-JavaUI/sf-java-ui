@@ -10,6 +10,7 @@ class GeneratorFactoryInitializer implements ServletContextListener {
 	@Override
 	public final void contextInitialized(final ServletContextEvent sce) {
 		GeneratorFactoryLoader.getInstance().load();
+		SchemaDecoratorLoader.getInstance().load();
 	}
 
 	@Override
