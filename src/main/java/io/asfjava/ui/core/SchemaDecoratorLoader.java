@@ -4,7 +4,7 @@ import java.util.Set;
 
 import org.reflections.Reflections;
 
-import io.asf.java.ui.schema.decorator.SchemaDecorator;
+import io.asfjava.ui.schema.decorator.SchemaDecorator;
 
 
 
