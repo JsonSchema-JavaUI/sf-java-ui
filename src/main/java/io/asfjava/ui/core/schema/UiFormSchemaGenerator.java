@@ -13,7 +13,6 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
 import io.asfjava.ui.core.FormDefinitionGeneratorFactory;
-import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 import io.asfjava.ui.dto.UiForm;
 
 public final class UiFormSchemaGenerator {
@@ -40,12 +39,11 @@ public final class UiFormSchemaGenerator {
 	private void buildFieldDefinition(Field field, Annotation annotation, ObjectMapper mapper,
 			ArrayNode formDefinitions) {
 		ObjectNode fieldFormDefinition = mapper.createObjectNode();
-		FormDefinitionGenerator generator = FormDefinitionGeneratorFactory.getInstance()
-				.getGenerator(annotation.annotationType().getName());
-		if (generator != null) {
-			generator.generate(fieldFormDefinition, field);
-			formDefinitions.add(fieldFormDefinition);
-		}
+		FormDefinitionGeneratorFactory.getInstance().getGenerator(annotation.annotationType().getName())
+				.ifPresent(generator -> {
+					generator.generate(fieldFormDefinition, field);
+					formDefinitions.add(fieldFormDefinition);
+				});
 	}
 
 	public static UiFormSchemaGenerator get() {
