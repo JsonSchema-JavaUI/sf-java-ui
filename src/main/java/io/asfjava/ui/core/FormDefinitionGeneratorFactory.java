@@ -16,15 +16,15 @@ public final class FormDefinitionGeneratorFactory {
 	}
 
 	public static FormDefinitionGeneratorFactory getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new FormDefinitionGeneratorFactory();
+		if (instance == null) {
+			instance = new FormDefinitionGeneratorFactory();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
 	private static final Map<String, FormDefinitionGenerator> GENERATORS = new ConcurrentHashMap<>();
 
-	private static FormDefinitionGeneratorFactory INSTANCE;
+	private static FormDefinitionGeneratorFactory instance;
 
 	private FormDefinitionGeneratorFactory() {
 	}

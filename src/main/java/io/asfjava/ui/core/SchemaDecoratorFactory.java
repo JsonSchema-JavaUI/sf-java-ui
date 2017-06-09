@@ -3,27 +3,27 @@ package io.asfjava.ui.core;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.asfjava.ui.schema.decorator.SchemaDecorator;
+import io.asfjava.ui.core.schema.decorator.SchemaDecorator;
 
 public final class SchemaDecoratorFactory {
 	public SchemaDecorator getGenerator(String annotationName) {
-		return GENERATORS.get(annotationName);
+		return decorators.get(annotationName);
 	}
 
 	void register(String annotationName, SchemaDecorator generator) {
-		GENERATORS.put(annotationName, generator);
+		decorators.put(annotationName, generator);
 	}
 
 	public static SchemaDecoratorFactory getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new SchemaDecoratorFactory();
+		if (instance == null) {
+			instance = new SchemaDecoratorFactory();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
-	private static final Map<String, SchemaDecorator> GENERATORS = new ConcurrentHashMap<>();
+	private static final Map<String, SchemaDecorator> decorators = new ConcurrentHashMap<>();
 
-	private static SchemaDecoratorFactory INSTANCE;
+	private static SchemaDecoratorFactory instance;
 
 	private SchemaDecoratorFactory() {
 	}

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.asfjava.ui.core.form.CheckBox;
 import io.asfjava.ui.core.form.ValuesContainer;
+import io.asfjava.ui.core.logging.ASFUILogger;
 
 public class CheckBoxGenerator implements FormDefinitionGenerator {
 
@@ -20,8 +21,6 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("type", "checkboxes");
 		fieldFormDefinition.put("multiple", annotation.multiple());
 		fieldFormDefinition.put("required", annotation.required());
-//		fieldFormDefinition.put("title", annotation.title());
-
 		ObjectMapper checkBoxMapper = new ObjectMapper();
 		ArrayNode titlesMap = checkBoxMapper.createArrayNode();
 		if (annotation.values().length > 0) {
@@ -40,7 +39,7 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 				});
 				fieldFormDefinition.set("titleMap", titlesMap);
 			} catch (InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
+				ASFUILogger.getLogger().error(e.getMessage());
 			}
 		}
 	}

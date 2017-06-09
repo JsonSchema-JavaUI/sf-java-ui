@@ -12,7 +12,6 @@ public class PasswordGenerator implements FormDefinitionGenerator {
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
 		Password annotation = field.getAnnotation(Password.class);
 		fieldFormDefinition.put("key", field.getName());
-//		fieldFormDefinition.put("title", annotation.title());
 		fieldFormDefinition.put("type", "password");
 
 		String description = annotation.description();

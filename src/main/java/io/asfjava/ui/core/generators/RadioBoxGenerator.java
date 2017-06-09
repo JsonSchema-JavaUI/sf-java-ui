@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.asfjava.ui.core.form.RadioBox;
+import io.asfjava.ui.core.logging.ASFUILogger;
 
 public class RadioBoxGenerator implements FormDefinitionGenerator {
 
@@ -19,7 +20,6 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("key", field.getName());
 		fieldFormDefinition.put("readOnly", annotation.readOnly());
 		fieldFormDefinition.put("type", "radios");
-//		fieldFormDefinition.put("title", annotation.title());
 
 		JsonNode radioFieldFormDefinition = ((JsonNode) fieldFormDefinition);
 
@@ -40,8 +40,7 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 
 			}
 		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO Log It into a Logger
-			e.printStackTrace();
+			ASFUILogger.getLogger().error(e.getMessage());
 		}
 
 		((ObjectNode) radioFieldFormDefinition).set("titleMap", titlesMap);
