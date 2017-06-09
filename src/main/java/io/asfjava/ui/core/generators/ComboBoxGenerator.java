@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.asfjava.ui.core.form.ComboBox;
 import io.asfjava.ui.core.form.ValuesContainer;
+import io.asfjava.ui.core.logging.ASFUILogger;
 
 public class ComboBoxGenerator implements FormDefinitionGenerator {
 
@@ -23,7 +24,6 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("multiple", annotation.multiple());
 		fieldFormDefinition.put("required", annotation.required());
 		fieldFormDefinition.put("size", annotation.size());
-//		fieldFormDefinition.put("title", annotation.title());
 
 		ObjectMapper comboMapper = new ObjectMapper();
 		ArrayNode titlesMap = comboMapper.createArrayNode();
@@ -43,7 +43,7 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 				});
 				fieldFormDefinition.set("titleMap", titlesMap);
 			} catch (InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
+				ASFUILogger.getLogger().error(e.getMessage());
 			}
 		}
 

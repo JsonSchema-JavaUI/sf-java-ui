@@ -5,11 +5,12 @@ import java.util.Set;
 import org.reflections.Reflections;
 
 import io.asfjava.ui.core.generators.FormDefinitionGenerator;
+import io.asfjava.ui.core.logging.ASFUILogger;
+import static io.asfjava.ui.core.logging.ErrorCode.*;
 
 final class GeneratorFactoryLoader {
 	private static final String PACKAGESCAN = "io.asfjava.ui.core.generators";
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
-
 	void load() {
 
 		Set<Class<? extends FormDefinitionGenerator>> subTypes = reflections
@@ -20,12 +21,8 @@ final class GeneratorFactoryLoader {
 				formDefinitionGenerator = (FormDefinitionGenerator) Class.forName(subtype.getName()).newInstance();
 				FormDefinitionGeneratorFactory.getInstance().register(formDefinitionGenerator.getAnnoation(),
 						formDefinitionGenerator);
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+				ASFUILogger.getLogger().error(ASF01, e);
 			}
 		}
 	}
@@ -35,12 +32,12 @@ final class GeneratorFactoryLoader {
 	}
 
 	static GeneratorFactoryLoader getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new GeneratorFactoryLoader();
-		return INSTANCE;
+		if (instance == null)
+			instance = new GeneratorFactoryLoader();
+		return instance;
 	}
 
-	private static GeneratorFactoryLoader INSTANCE;
+	private static GeneratorFactoryLoader instance;
 
 	private GeneratorFactoryLoader() {
 	}
