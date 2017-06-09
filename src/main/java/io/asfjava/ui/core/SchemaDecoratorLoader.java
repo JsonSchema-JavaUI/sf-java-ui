@@ -7,7 +7,7 @@ import java.util.Set;
 import org.reflections.Reflections;
 
 import io.asfjava.ui.core.logging.ASFUILogger;
-import io.asfjava.ui.core.schema.decorator.SchemaDecorator;
+import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
 final class SchemaDecoratorLoader {
 

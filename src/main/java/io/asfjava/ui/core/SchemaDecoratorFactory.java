@@ -3,10 +3,10 @@ package io.asfjava.ui.core;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import io.asfjava.ui.core.schema.decorator.SchemaDecorator;
+import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
 public final class SchemaDecoratorFactory {
-	public SchemaDecorator getGenerator(String annotationName) {
+	public SchemaDecorator getDecorator(String annotationName) {
 		return decorators.get(annotationName);
 	}
 

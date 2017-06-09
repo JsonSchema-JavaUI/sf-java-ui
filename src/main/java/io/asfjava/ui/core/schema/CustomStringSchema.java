@@ -14,7 +14,7 @@ class CustomStringSchema extends StringSchema {
 		super.enrichWithBeanProperty(beanProperty);
 		Iterable<Annotation> it = beanProperty.getMember().annotations();
 		String anno = it.iterator().next().annotationType().getName();
-		SchemaDecoratorFactory.getInstance().getGenerator(anno).customizeSchema(beanProperty, this);
+		SchemaDecoratorFactory.getInstance().getDecorator(anno).customizeSchema(beanProperty, this);
 	}
 
 }
