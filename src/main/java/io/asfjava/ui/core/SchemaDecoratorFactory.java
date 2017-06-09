@@ -1,13 +1,14 @@
 package io.asfjava.ui.core;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
 public final class SchemaDecoratorFactory {
-	public SchemaDecorator getDecorator(String annotationName) {
-		return decorators.get(annotationName);
+	public Optional<SchemaDecorator> getDecorator(String annotationName) {
+		return Optional.ofNullable(decorators.get(annotationName));
 	}
 
 	void register(String annotationName, SchemaDecorator generator) {
