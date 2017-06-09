@@ -11,7 +11,7 @@ import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
 final class SchemaDecoratorLoader {
 
-	private static final String PACKAGESCAN = "io.asfjava.ui.schema.decorator";
+	private static final String PACKAGESCAN = "io.asfjava.ui.core.schema.decorators";
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
 
 	void load() {
