@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
-import io.asfjava.ui.core.form.Password;
 import io.asfjava.ui.core.form.RadioBox;
 
 public class RadioBoxSchemaDecorator implements SchemaDecorator {
