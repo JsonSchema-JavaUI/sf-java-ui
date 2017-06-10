@@ -3,6 +3,7 @@ package io.asfjava.ui.core;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
 import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 
@@ -12,8 +13,8 @@ public final class FormDefinitionGeneratorFactory {
 		return Optional.ofNullable(GENERATORS.get(annotationName));
 	}
 
-	void register(String annotationName, FormDefinitionGenerator generator) {
-		GENERATORS.put(annotationName, generator);
+	void register(Supplier<String> annotationName, FormDefinitionGenerator generator) {
+		GENERATORS.put(annotationName.get(), generator);
 	}
 
 	public static FormDefinitionGeneratorFactory getInstance() {

@@ -1,8 +1,6 @@
 package io.asfjava.ui.core;
 
-import static io.asfjava.ui.core.logging.ErrorCode.ASF02;
-
-import java.util.Set;
+import static io.asfjava.ui.core.logging.ErrorCode.ASF01;
 
 import org.reflections.Reflections;
 
@@ -15,21 +13,20 @@ final class SchemaDecoratorLoader {
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
 
 	void load() {
+		reflections.getSubTypesOf(SchemaDecorator.class).stream().forEach(subtype -> register(subtype));
+	}
 
-		Set<Class<? extends SchemaDecorator>> subTypes = reflections.getSubTypesOf(SchemaDecorator.class);
-		for (Class<? extends SchemaDecorator> subtype : subTypes) {
-			SchemaDecorator schemaDecorator;
-			try {
-				schemaDecorator = (SchemaDecorator) Class.forName(subtype.getName()).newInstance();
-				SchemaDecoratorFactory.getInstance().register(schemaDecorator.getAnnotation(), schemaDecorator);
-			} catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
-				ASFUILogger.getLogger().error(ASF02, e);
-			}
+	private void register(Class<? extends SchemaDecorator> subtype) {
+		try {
+			SchemaDecorator decorator = subtype.newInstance();
+			SchemaDecoratorFactory.getInstance().register(decorator::getAnnotation, decorator);
+		} catch (InstantiationException | IllegalAccessException e) {
+			ASFUILogger.getLogger().error(ASF01, e);
 		}
 	}
 
 	void unload() {
-		System.out.println("I'm unloader");
+		ASFUILogger.getLogger().info("I'm unloader");
 	}
 
 	static SchemaDecoratorLoader getInstance() {
