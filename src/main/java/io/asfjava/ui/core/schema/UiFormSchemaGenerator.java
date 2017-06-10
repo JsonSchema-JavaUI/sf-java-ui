@@ -42,6 +42,7 @@ public final class UiFormSchemaGenerator {
 
 		ArrayNode formDefinition = mapper.createArrayNode();
 		formDefinition.add(tabbedFields);
+		nodes.entrySet().stream().forEach(nodesElement -> formDefinition.add(nodesElement.getValue()));
 
 		return new UiForm(schema, formDefinition);
 	}
