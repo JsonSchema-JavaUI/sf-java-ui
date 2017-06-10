@@ -37,7 +37,7 @@ public class PasswordGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return Password.class.getName();
 	}
 

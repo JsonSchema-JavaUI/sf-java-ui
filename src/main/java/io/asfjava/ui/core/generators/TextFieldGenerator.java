@@ -40,7 +40,7 @@ public class TextFieldGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return TextField.class.getName();
 	}
 }

@@ -63,7 +63,7 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return ComboBox.class.getName();
 	}
 

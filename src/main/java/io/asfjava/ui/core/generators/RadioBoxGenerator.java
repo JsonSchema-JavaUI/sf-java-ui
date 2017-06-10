@@ -48,7 +48,7 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return RadioBox.class.getName();
 	}
 

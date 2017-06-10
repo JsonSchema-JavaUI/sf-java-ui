@@ -12,7 +12,7 @@ import io.asfjava.ui.core.form.CheckBox;
 import io.asfjava.ui.core.form.ValuesContainer;
 import io.asfjava.ui.core.logging.ASFUILogger;
 
-public class CheckBoxGenerator implements FormDefinitionGenerator {
+public class CheckBoxGenerator implements FormDefinitionGenerator{
 
 	@Override
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
@@ -58,7 +58,7 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return CheckBox.class.getName();
 	}
 
