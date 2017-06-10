@@ -26,7 +26,7 @@ import io.asfjava.ui.dto.UiForm;
 
 public final class UiFormSchemaGenerator {
 
-	private static UiFormSchemaGenerator INSTANCE;
+	private static UiFormSchemaGenerator instance;
 
 	public UiForm generate(Class<? extends Serializable> formDto) throws JsonMappingException {
 		Field[] declaredFields = formDto.getDeclaredFields();
@@ -122,10 +122,10 @@ public final class UiFormSchemaGenerator {
 	}
 
 	public static UiFormSchemaGenerator get() {
-		if (INSTANCE == null) {
-			INSTANCE = new UiFormSchemaGenerator();
+		if (instance == null) {
+			instance = new UiFormSchemaGenerator();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
 	private UiFormSchemaGenerator() {

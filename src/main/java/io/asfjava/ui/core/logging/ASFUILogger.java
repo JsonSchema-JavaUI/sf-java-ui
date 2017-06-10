@@ -9,4 +9,8 @@ public final class ASFUILogger {
 	public static Logger getLogger(){
 		return LOGGER;
 	}
+	
+	private ASFUILogger() {
+	}
+
 }

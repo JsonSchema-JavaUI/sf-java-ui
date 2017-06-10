@@ -21,7 +21,7 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("readOnly", annotation.readOnly());
 		fieldFormDefinition.put("type", "radios");
 
-		JsonNode radioFieldFormDefinition = ((JsonNode) fieldFormDefinition);
+		JsonNode radioFieldFormDefinition = fieldFormDefinition;
 
 		ObjectMapper radioMapper = new ObjectMapper();
 
@@ -41,6 +41,7 @@ public class RadioBoxGenerator implements FormDefinitionGenerator {
 			}
 		} catch (InstantiationException | IllegalAccessException e) {
 			ASFUILogger.getLogger().error(e.getMessage());
+			throw new RuntimeException(e);
 		}
 
 		((ObjectNode) radioFieldFormDefinition).set("titleMap", titlesMap);
