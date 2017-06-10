@@ -34,7 +34,7 @@ public final class UiFormSchemaGenerator {
 
 		JsonSchemaGenerator schemaGen = initSchemaGen(mapper);
 		JsonSchema schema = generateSchema(formDto, schemaGen);
-		Map<Field, JsonNode> nodes = initFieldFormDefinition(mapper, formDto, declaredFields);
+		Map<Field, JsonNode> nodes = initFieldFormDefinition(mapper, declaredFields);
 
 		handlerGroupedFields();
 
@@ -67,7 +67,7 @@ public final class UiFormSchemaGenerator {
 			ObjectNode tabNode = mapper.createObjectNode();
 			tabNode.put("title", tabElements.getKey());
 			ArrayNode tabItems = mapper.createArrayNode();
-			tabElements.getValue().stream().forEach(fieldNode -> tabItems.add(fieldNode));
+			tabElements.getValue().stream().forEach(tabItems::add);
 			tabNode.put("items", tabItems);
 			tabs.add(tabNode);
 		});
@@ -79,8 +79,7 @@ public final class UiFormSchemaGenerator {
 
 	}
 
-	private Map<Field, JsonNode> initFieldFormDefinition(ObjectMapper mapper, Class<? extends Serializable> formDto,
-			Field[] declaredFields) {
+	private Map<Field, JsonNode> initFieldFormDefinition(ObjectMapper mapper, Field[] declaredFields) {
 		Map<Field, JsonNode> nodes = new HashMap<>();
 		Arrays.stream(declaredFields).forEach(field -> buildFormDefinition(nodes, mapper, field));
 		return nodes;

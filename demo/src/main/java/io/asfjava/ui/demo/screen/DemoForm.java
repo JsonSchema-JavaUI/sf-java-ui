@@ -17,7 +17,7 @@ public class DemoForm implements Serializable {
 	@TextField(title = "First Name", placeHolder = "Your first name", description = "This is a description for your first name field")
 	private String firstName;
 
-	@Tab(title = "Info", index = 1)
+//	@Tab(title = "Info", index = 1)
 	@TextField(title = "Last Name", placeHolder = "Your last name")
 	private String lastName;
 
@@ -29,7 +29,7 @@ public class DemoForm implements Serializable {
 	@Number(title = "Number of children", placeHolder = "Number of children", description = "This is a number")
 	private Integer number;
 
-	@Tab(title = "Contact", index = 2)
+//	@Tab(title = "Contact", index = 2)
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
 	private String password;
 
@@ -37,7 +37,7 @@ public class DemoForm implements Serializable {
 	@ComboBox(title = "Gender", titleMap = GenderTitleMap.class)
 	private String gender;
 
-	@Tab(title = "Additional Info", index = 3)
+//	@Tab(title = "Additional Info", index = 3)
 	@ComboBox(title = "Currency", values = { "euro", "dollar" })
 	private String currency;
 
@@ -45,7 +45,7 @@ public class DemoForm implements Serializable {
 	@RadioBox(title = "Civil State", titleMap = CivilStateTitelsMap.class)
 	private String civilState;
 
-	@Tab(title = "Contact", index = 2)
+//	@Tab(title = "Contact", index = 2)
 	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea")
 	private String address;
 

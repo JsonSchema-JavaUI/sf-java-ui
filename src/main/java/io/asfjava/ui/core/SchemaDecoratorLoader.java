@@ -19,9 +19,7 @@ final class SchemaDecoratorLoader {
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
 
 	void load() {
-		for (Class<? extends SchemaDecorator> subType : reflections.getSubTypesOf(SchemaDecorator.class)) {
-			register(subType);
-		}
+		reflections.getSubTypesOf(SchemaDecorator.class).forEach(instance::register);
 	}
 
 	private void register(Class<? extends SchemaDecorator> subType) {

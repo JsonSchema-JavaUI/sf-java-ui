@@ -17,10 +17,7 @@ final class GeneratorFactoryLoader {
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
 
 	void load() {
-		for (Class<? extends FormDefinitionGenerator> subType : reflections
-				.getSubTypesOf(FormDefinitionGenerator.class)) {
-			register(subType);
-		}
+		reflections.getSubTypesOf(FormDefinitionGenerator.class).forEach(instance::register);
 	}
 
 	private void register(Class<? extends FormDefinitionGenerator> subType) {

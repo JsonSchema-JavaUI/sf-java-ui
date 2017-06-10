@@ -15,7 +15,7 @@ class CustomSchemaFactoryWrapper extends SchemaFactoryWrapper {
 				wrapper.setProvider(p);
 			}
 			return wrapper;
-		};
+		}
 
 		@Override
 		public SchemaFactoryWrapper getWrapper(SerializerProvider p, VisitorContext rvc) {
@@ -26,7 +26,7 @@ class CustomSchemaFactoryWrapper extends SchemaFactoryWrapper {
 			wrapper.setVisitorContext(rvc);
 			return wrapper;
 		}
-	};
+	}
 
 	CustomSchemaFactoryWrapper() {
 		super(new SFSchemaFactoryWrapperFactory());
