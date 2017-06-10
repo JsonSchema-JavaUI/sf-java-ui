@@ -38,7 +38,7 @@ public class NumberGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return Number.class.getName();
 	}
 

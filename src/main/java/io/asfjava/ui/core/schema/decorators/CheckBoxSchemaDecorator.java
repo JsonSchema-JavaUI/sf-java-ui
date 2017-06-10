@@ -1,17 +1,16 @@
-package io.asfjava.ui.schema.decorator;
+package io.asfjava.ui.core.schema.decorators;
 
 import com.fasterxml.jackson.databind.BeanProperty;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
-import io.asfjava.ui.core.form.Password;
-import io.asfjava.ui.core.form.RadioBox;
+import io.asfjava.ui.core.form.CheckBox;
 
-public class RadioBoxSchemaDecorator implements SchemaDecorator {
+public class CheckBoxSchemaDecorator implements SchemaDecorator {
 
 	@Override
 	public void customizeSchema(BeanProperty property, JsonSchema jsonschema) {
-		RadioBox annotation = property.getAnnotation(RadioBox.class);
+		CheckBox annotation = property.getAnnotation(CheckBox.class);
 		if (annotation != null && annotation.title() != null) {
 			((StringSchema) jsonschema).setTitle(annotation.title());
 		}
@@ -19,7 +18,7 @@ public class RadioBoxSchemaDecorator implements SchemaDecorator {
 
 	@Override
 	public String getAnnotation() {
-		return RadioBox.class.getName();
+		return CheckBox.class.getName();
 	}
 
 }

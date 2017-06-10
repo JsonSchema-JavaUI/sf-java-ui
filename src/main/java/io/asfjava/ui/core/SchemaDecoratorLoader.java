@@ -1,48 +1,47 @@
 package io.asfjava.ui.core;
 
-import java.util.Set;
+import static io.asfjava.ui.core.logging.ErrorCode.ASF01;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.reflections.Reflections;
 
-import io.asfjava.ui.schema.decorator.SchemaDecorator;
-
-
+import io.asfjava.ui.core.logging.ASFUILogger;
+import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
 final class SchemaDecoratorLoader {
 
-	private static final String PACKAGESCAN = "io.asfjava.ui.schema.decorator";
+	private static final List<String> PACKAGESCAN = Stream
+			.of("io.asfjava.ui.core.schema.decorators", "io.asfjava.ui.addons.schema.decorators")
+			.collect(Collectors.toList());
 	private static Reflections reflections = new Reflections(PACKAGESCAN);
-	void load() {
 
-		Set<Class<? extends SchemaDecorator>> subTypes = reflections
-				.getSubTypesOf(SchemaDecorator.class);
-		for (Class<? extends SchemaDecorator> subtype : subTypes) {
-			SchemaDecorator schemaDecorator;
-			try {
-				schemaDecorator = (SchemaDecorator) Class.forName(subtype.getName()).newInstance();
-				SchemaDecoratorFactory.getInstance().register(schemaDecorator.getAnnotation(),
-						schemaDecorator);
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			} catch (IllegalAccessException e) {
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
+	void load() {
+		reflections.getSubTypesOf(SchemaDecorator.class).forEach(instance::register);
+	}
+
+	private void register(Class<? extends SchemaDecorator> subType) {
+		try {
+			SchemaDecorator decorator = subType.newInstance();
+			SchemaDecoratorFactory.getInstance().register(decorator::getAnnotation, decorator);
+		} catch (InstantiationException | IllegalAccessException e) {
+			ASFUILogger.getLogger().error(ASF01, e);
 		}
 	}
 
 	void unload() {
-		System.out.println("I'm unloader");
+		ASFUILogger.getLogger().info("I'm unloader");
 	}
 
 	static SchemaDecoratorLoader getInstance() {
-		if (INSTANCE == null)
-			INSTANCE = new SchemaDecoratorLoader();
-		return INSTANCE;
+		if (instance == null)
+			instance = new SchemaDecoratorLoader();
+		return instance;
 	}
 
-	private static SchemaDecoratorLoader INSTANCE;
+	private static SchemaDecoratorLoader instance;
 
 	private SchemaDecoratorLoader() {
 	}

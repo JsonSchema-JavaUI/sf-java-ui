@@ -12,7 +12,6 @@ public class TextAreaGenerator implements FormDefinitionGenerator {
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
 		TextArea annotation = field.getAnnotation(TextArea.class);
 		fieldFormDefinition.put("key", field.getName());
-//		fieldFormDefinition.put("title", annotation.title());
 		fieldFormDefinition.put("type", "textarea");
 
 		String description = annotation.description();
@@ -38,7 +37,7 @@ public class TextAreaGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return TextArea.class.getName();
 	}
 

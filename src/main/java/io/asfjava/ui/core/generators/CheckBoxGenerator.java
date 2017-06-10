@@ -10,8 +10,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import io.asfjava.ui.core.form.CheckBox;
 import io.asfjava.ui.core.form.ValuesContainer;
+import io.asfjava.ui.core.logging.ASFUILogger;
 
-public class CheckBoxGenerator implements FormDefinitionGenerator {
+public class CheckBoxGenerator implements FormDefinitionGenerator{
 
 	@Override
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
@@ -20,8 +21,6 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 		fieldFormDefinition.put("type", "checkboxes");
 		fieldFormDefinition.put("multiple", annotation.multiple());
 		fieldFormDefinition.put("required", annotation.required());
-//		fieldFormDefinition.put("title", annotation.title());
-
 		ObjectMapper checkBoxMapper = new ObjectMapper();
 		ArrayNode titlesMap = checkBoxMapper.createArrayNode();
 		if (annotation.values().length > 0) {
@@ -40,16 +39,19 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 				});
 				fieldFormDefinition.set("titleMap", titlesMap);
 			} catch (InstantiationException | IllegalAccessException e) {
-				e.printStackTrace();
+				ASFUILogger.getLogger().error(e.getMessage());
+				throw new RuntimeException(e);
 			}
 		}
 	}
 
 	private void buildValueDefinition(ObjectMapper checkBoxMapper, ArrayNode titlesMap, String value) {
 		ObjectNode entry = checkBoxMapper.createObjectNode();
-		if (value.equals(value.toUpperCase())) {
+		String upperCasedValue = value.toUpperCase();
+		String lowerCasedValue = value.toLowerCase();
+		if (value.equals(upperCasedValue)) {
 			entry.put("name", value.toLowerCase());
-		} else if (value.equals(value.toLowerCase())) {
+		} else if (value.equals(lowerCasedValue)) {
 			entry.put("name", value.replace(value.substring(0, 1), value.substring(0, 1).toUpperCase()));
 		} else {
 			entry.put("name", value);
@@ -59,7 +61,7 @@ public class CheckBoxGenerator implements FormDefinitionGenerator {
 	}
 
 	@Override
-	public String getAnnoation() {
+	public String getAnnotation() {
 		return CheckBox.class.getName();
 	}
 

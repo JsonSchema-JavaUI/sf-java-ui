@@ -11,11 +11,11 @@ class CustomStringSchema extends StringSchema {
 
 	@Override
 	public void enrichWithBeanProperty(BeanProperty beanProperty) {
-		super.enrichWithBeanProperty(beanProperty);	
+		super.enrichWithBeanProperty(beanProperty);
 		Iterable<Annotation> it = beanProperty.getMember().annotations();
-		String anno = it.iterator().next().annotationType().getName();
-		SchemaDecoratorFactory.getInstance().getGenerator(anno).customizeSchema(beanProperty, this);
-
+		it.forEach(
+				annotation -> SchemaDecoratorFactory.getInstance().getDecorator(annotation.annotationType().getName())
+						.ifPresent(decorator -> decorator.customizeSchema(beanProperty, this)));
 	}
 
 }

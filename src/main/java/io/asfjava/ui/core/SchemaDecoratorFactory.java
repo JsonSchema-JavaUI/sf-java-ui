@@ -1,29 +1,31 @@
 package io.asfjava.ui.core;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
-import io.asfjava.ui.schema.decorator.SchemaDecorator;
+import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
 public final class SchemaDecoratorFactory {
-	public SchemaDecorator getGenerator(String annotationName) {
-		return GENERATORS.get(annotationName);
+	public Optional<SchemaDecorator> getDecorator(String annotationName) {
+		return Optional.ofNullable(decorators.get(annotationName));
 	}
 
-	void register(String annotationName, SchemaDecorator generator) {
-		GENERATORS.put(annotationName, generator);
+	void register(Supplier<String> annotationName, SchemaDecorator generator) {
+		decorators.put(annotationName.get(), generator);
 	}
 
 	public static SchemaDecoratorFactory getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new SchemaDecoratorFactory();
+		if (instance == null) {
+			instance = new SchemaDecoratorFactory();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
-	private static final Map<String, SchemaDecorator> GENERATORS = new ConcurrentHashMap<>();
+	private static final Map<String, SchemaDecorator> decorators = new ConcurrentHashMap<>();
 
-	private static SchemaDecoratorFactory INSTANCE;
+	private static SchemaDecoratorFactory instance;
 
 	private SchemaDecoratorFactory() {
 	}
