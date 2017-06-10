@@ -44,6 +44,7 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 				fieldFormDefinition.set("titleMap", titlesMap);
 			} catch (InstantiationException | IllegalAccessException e) {
 				ASFUILogger.getLogger().error(e.getMessage());
+				throw new RuntimeException(e);
 			}
 		}
 
@@ -51,9 +52,11 @@ public class ComboBoxGenerator implements FormDefinitionGenerator {
 
 	private void buildValueDefinition(ObjectMapper comboMapper, ArrayNode titlesMap, String value) {
 		ObjectNode entry = comboMapper.createObjectNode();
-		if (value.equals(value.toUpperCase())) {
+		String upperCasedValue = value.toUpperCase();
+		String lowerCasedValue = value.toLowerCase();
+		if (value.equals(upperCasedValue)) {
 			entry.put("name", value.toLowerCase());
-		} else if (value.equals(value.toLowerCase())) {
+		} else if (value.equals(lowerCasedValue)) {
 			entry.put("name", value.replace(value.substring(0, 1), value.substring(0, 1).toUpperCase()));
 		} else {
 			entry.put("name", value);
