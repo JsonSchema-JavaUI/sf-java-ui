@@ -20,12 +20,13 @@ public class DemoForm implements Serializable {
 	@TextField(title = "Your Github Mail",fieldAddonRight="@github.com", description = "This is TextField with fieldAddonRight")
 	private String gitHub;
 	
+	
 //	@Tab(title = "Contact", index = 2)
-	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
+	@Password(title = "Password", placeHolder = "Please set you password",description = "This is password")
 	private String password;
 
 	@Tab(title = "Info", index = 1)
-	@TextField(title = "First Name", placeHolder = "Your first name", description = "This is a description for your first name field")
+	@TextField(title = "First Name", placeHolder = "Your first name",minLenght=3,maxLenght=10, validationMessage = "The First Name must contain a minimum of 3 and a max of 10 characters  ", description = "This is a description for your first name field with minLenght and maxLenght")
 	private String firstName;
 
 //	@Tab(title = "Info", index = 1)
