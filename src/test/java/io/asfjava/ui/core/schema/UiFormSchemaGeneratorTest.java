@@ -13,7 +13,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.asfjava.ui.core.GeneratorFactoryInitializer;
@@ -186,6 +185,7 @@ public class UiFormSchemaGeneratorTest {
 
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title", equalTo("Password")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.pattern", equalTo("[a-z]")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]", hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description", hasItem("This is password")));
 		Assert.assertThat(json,
@@ -204,6 +204,7 @@ public class UiFormSchemaGeneratorTest {
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title",equalTo("Password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.pattern", equalTo("[a-z]")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description",hasItem("This is password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].placeholder",hasItem("Please set you password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].validationMessage",hasItem("this is a validation msg")));
@@ -221,6 +222,7 @@ public class UiFormSchemaGeneratorTest {
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title",equalTo("Password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.pattern", equalTo("[a-z]")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description",hasItem("This is password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].placeholder",hasItem("Please set you password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].validationMessage",hasItem("this is a validation msg")));
@@ -256,6 +258,8 @@ public class UiFormSchemaGeneratorTest {
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title", equalTo("Address")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.minLenght", equalTo(6)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.maxLenght", equalTo(10)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description", hasItem("This is textarea")));
 		Assert.assertThat(json,
 				hasJsonPath("$.form[?(@.key=='address')].placeholder", hasItem("Fill your address please")));
@@ -276,13 +280,13 @@ public class UiFormSchemaGeneratorTest {
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title", equalTo("Address")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.minLenght", equalTo(6)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.maxLenght", equalTo(10)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description", hasItem("This is textarea")));
 		Assert.assertThat(json,
 				hasJsonPath("$.form[?(@.key=='address')].placeholder", hasItem("Fill your address please")));
 		Assert.assertThat(json,
 				hasJsonPath("$.form[?(@.key=='address')].validationMessage", hasItem("this is a validation msg")));
-		// Assert.assertThat(json,
-		// hasJsonPath("$.form[?(@.key=='password')].type",hasItem("textArea")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].fieldAddonRight", hasItem("@")));
@@ -387,12 +391,12 @@ public class UiFormSchemaGeneratorTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.tabs)].tabs[?(@.title=='Contact')].items[*]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='webSite')]"));
 	}
-
 }
+	
 
 class TextFieldForm implements Serializable {
 
-	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field", readOnly = true)
+	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field", readOnly = true)
 	private String firstName;
 
 	public String getFirstName() {
@@ -403,7 +407,7 @@ class TextFieldForm implements Serializable {
 
 class TextFieldFormRight implements Serializable {
 
-	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonRight = "@", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
+	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonRight = "@", pattern = "[a-z]",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
 	private String firstName;
 
 	public String getFirstName() {
@@ -474,7 +478,7 @@ class DoubleNumberForm implements Serializable {
 
 class PasswordForm implements Serializable {
 
-	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String password;
 
 	public String getPassword() {
@@ -484,7 +488,7 @@ class PasswordForm implements Serializable {
 
 class PasswordForm2 implements Serializable {
 
-	@Password(title = "Password", placeHolder = "Please set you password", fieldAddonRight = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]",minLenght=6,maxLenght=10, fieldAddonRight = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String password;
 
 	public String getPassword() {
@@ -494,7 +498,7 @@ class PasswordForm2 implements Serializable {
 
 class PasswordForm3 implements Serializable {
 
-	@Password(title = "Password", placeHolder = "Please set you password", fieldAddonLeft = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]",minLenght=6,maxLenght=10, fieldAddonLeft = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String password;
 
 	public String getPassword() {
@@ -504,7 +508,7 @@ class PasswordForm3 implements Serializable {
 
 class TextAreaForm2 implements Serializable {
 
-	@TextArea(title = "Address", placeHolder = "Fill your address please", fieldAddonLeft = "@", description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@TextArea(title = "Address", placeHolder = "Fill your address please", fieldAddonLeft = "@",minLenght=6,maxLenght=10, description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String address;
 
 	public String getAddress() {
@@ -514,7 +518,7 @@ class TextAreaForm2 implements Serializable {
 
 class TextAreaForm3 implements Serializable {
 
-	@TextArea(title = "Address", placeHolder = "Fill your address please",fieldAddonRight = "@", description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@TextArea(title = "Address", placeHolder = "Fill your address please",fieldAddonRight = "@",minLenght=6,maxLenght=10, description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String address;
 
 	public String getAddress() {
@@ -524,7 +528,7 @@ class TextAreaForm3 implements Serializable {
 
 class TextAreaForm implements Serializable {
 
-	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String address;
 
 	public String getAddress() {
