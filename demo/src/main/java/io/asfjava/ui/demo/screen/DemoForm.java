@@ -17,6 +17,9 @@ public class DemoForm implements Serializable {
 	@TextField(title = "Pesonal Website",fieldAddonLeft="http://", description = "This is TextField with fieldAddonLeft")
 	private String webSite;
 	
+	@TextField(title = "Your Github Mail",fieldAddonRight="@github.com", description = "This is TextField with fieldAddonRight")
+	private String gitHub;
+	
 //	@Tab(title = "Contact", index = 2)
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
 	private String password;
@@ -76,6 +79,14 @@ public class DemoForm implements Serializable {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public void setGitHub(String github) {
+		this.gitHub = github;
+	}
+
+	public String getGitHub() {
+		return gitHub;
 	}
 	
 	public void setWebSite(String website) {
