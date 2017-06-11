@@ -13,6 +13,14 @@ import io.asfjava.ui.core.form.TextField;
 
 public class DemoForm implements Serializable {
 
+	
+	@TextField(title = "Pesonal Website",fieldAddonLeft="http://", description = "This is TextField with fieldAddonLeft")
+	private String webSite;
+	
+//	@Tab(title = "Contact", index = 2)
+	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
+	private String password;
+
 	@Tab(title = "Info", index = 1)
 	@TextField(title = "First Name", placeHolder = "Your first name", description = "This is a description for your first name field")
 	private String firstName;
@@ -29,9 +37,6 @@ public class DemoForm implements Serializable {
 	@Number(title = "Number of children", placeHolder = "Number of children", description = "This is a number")
 	private Integer number;
 
-//	@Tab(title = "Contact", index = 2)
-	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password")
-	private String password;
 
 	@Tab(title = "Info", index = 1)
 	@ComboBox(title = "Gender", titleMap = GenderTitleMap.class)
@@ -71,6 +76,14 @@ public class DemoForm implements Serializable {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public void setWebSite(String website) {
+		this.webSite = website;
+	}
+
+	public String getWebSite() {
+		return webSite;
 	}
 
 	public void setLastName(String lastName) {
