@@ -5,7 +5,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 @WebListener
-class GeneratorFactoryInitializer implements ServletContextListener {
+public class GeneratorFactoryInitializer implements ServletContextListener {
 
 	@Override
 	public final void contextInitialized(final ServletContextEvent sce) {
