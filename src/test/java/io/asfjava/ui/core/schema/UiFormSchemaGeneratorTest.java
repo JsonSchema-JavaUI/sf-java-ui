@@ -7,6 +7,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 import java.io.Serializable;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,103 +26,158 @@ import io.asfjava.ui.core.form.TextField;
 import io.asfjava.ui.dto.UiForm;
 
 public class UiFormSchemaGeneratorTest {
+	static GeneratorFactoryInitializer generatorFactoryInitializer;
 
 	@BeforeClass
-	public static void init() {
-		new GeneratorFactoryInitializer().contextInitialized(null);
+	public static void setUpBeforeClass() {
+		generatorFactoryInitializer = new GeneratorFactoryInitializer();
+		generatorFactoryInitializer.contextInitialized(null);
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() {
+		generatorFactoryInitializer.contextDestroyed(null);
 	}
 
 	@Test
 	public void testGenerate_textField() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		
 
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title",equalTo("First Name")));
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern",equalTo("[a-z]")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",hasItem("This is a description for your first name field")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder",hasItem("Your first name")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].validationMessage",hasItem("this is a validation msg")));
-		//Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].type",hasItem("textField")));
-		
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title", equalTo("First Name")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern", equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",
+				hasItem("This is a description for your first name field")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder", hasItem("Your first name")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='firstName')].validationMessage", hasItem("this is a validation msg")));
+		// Assert.assertThat(json,
+		// hasJsonPath("$.form[?(@.key=='firstName')].type",hasItem("textField")));
+
 	}
-	
+
 	@Test
 	public void testGenerate_textField_WithFieldAddonRight() throws JsonProcessingException {
-		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldForm2.class);
+		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldFormRight.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		
 
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title",equalTo("First Name")));
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern",equalTo("[a-z]")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",hasItem("This is a description for your first name field")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder",hasItem("Your first name")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].validationMessage",hasItem("this is a validation msg")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonRight",hasItem("@")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title", equalTo("First Name")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern", equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",
+				hasItem("This is a description for your first name field")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder", hasItem("Your first name")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='firstName')].validationMessage", hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonRight", hasItem("@")));
 
 	}
-	
+
 	@Test
 	public void testGenerate_textField_WithFieldAddonLeft() throws JsonProcessingException {
-		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldForm3.class);
+		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldFormLeft.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		
 
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title",equalTo("First Name")));
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern",equalTo("[a-z]")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",hasItem("This is a description for your first name field")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder",hasItem("Your first name")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].validationMessage",hasItem("this is a validation msg")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonLeft",hasItem("@")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title", equalTo("First Name")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern", equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",
+				hasItem("This is a description for your first name field")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder", hasItem("Your first name")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='firstName')].validationMessage", hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonLeft", hasItem("@")));
 
 	}
 
 	@Test
-	public void testGenerate_Number() throws JsonProcessingException {
-		UiForm ui = UiFormSchemaGenerator.get().generate(NumberForm.class);
+	public void testGenerate_Number_For_Integer() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(IntegerNumberForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		//Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title",equalTo("Number")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].description",hasItem("This is a number")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].placeholder",hasItem("Number of children")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",hasItem("this is a validation msg")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type",hasItem("number")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title", equalTo("Integer Number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]", hasSize(1)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='number')].description", hasItem("This is an integer number")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='number')].placeholder", hasItem("Integer Number PlaceHolder")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",
+				hasItem("this is a validation msg for an integer value")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type", hasItem("number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly", hasItem(true)));
+
+	}
+
+	@Test
+	public void testGenerate_Number_For_Long() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(LongNumberForm.class);
+		String json = new ObjectMapper().writeValueAsString(ui);
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title", equalTo("Long Number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]", hasSize(1)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='number')].description", hasItem("This is a long number")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='number')].placeholder", hasItem("Long Number PlaceHolder")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",
+				hasItem("this is a validation msg for long value")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type", hasItem("number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly", hasItem(true)));
+
+	}
+
+	@Test
+	public void testGenerate_Number_For_Double() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(DoubleNumberForm.class);
+		String json = new ObjectMapper().writeValueAsString(ui);
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title", equalTo("Double Number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]", hasSize(1)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='number')].description", hasItem("This is a double number")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='number')].placeholder", hasItem("Double Number PlaceHolder")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",
+				hasItem("this is a validation msg for double value")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type", hasItem("number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly", hasItem(true)));
 
 	}
 
 	@Test
 	public void testGenerate_Password() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(PasswordForm.class);
-		
+
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title",equalTo("Password")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description",hasItem("This is password")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].placeholder",hasItem("Please set you password")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].validationMessage",hasItem("this is a validation msg")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].type",hasItem("password")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title", equalTo("Password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description", hasItem("This is password")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='password')].placeholder", hasItem("Please set you password")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='password')].validationMessage", hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].type", hasItem("password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly", hasItem(true)));
 	}
 
 	@Test
 	public void testGenerate_TextArea() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(TextAreaForm.class);
-		
+
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title",equalTo("Address")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description",hasItem("This is textarea")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].placeholder",hasItem("Fill your address please")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].validationMessage",hasItem("this is a validation msg")));
-		//Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].type",hasItem("textArea")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title", equalTo("Address")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description", hasItem("This is textarea")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='address')].placeholder", hasItem("Fill your address please")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='address')].validationMessage", hasItem("this is a validation msg")));
+		// Assert.assertThat(json,
+		// hasJsonPath("$.form[?(@.key=='password')].type",hasItem("textArea")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
 
 	}
 
@@ -129,80 +185,91 @@ public class UiFormSchemaGeneratorTest {
 	public void testGenerate_CheckBox() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(CheckBoxForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.color.title",equalTo("Color")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].multiple",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].required",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Red')].value",hasItem("red")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Blue')].value",hasItem("blue")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Green')].value",hasItem("green")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.color.title", equalTo("Color")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].multiple", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].required", hasItem(true)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Red')].value", hasItem("red")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Blue')].value", hasItem("blue")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Green')].value", hasItem("green")));
 	}
 
 	@Test
 	public void testGenerate_CheckBox_WithCustomValuesContainer() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(CheckBoxForm2.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.color.title",equalTo("Color")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].multiple",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].required",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Red')].value",hasItem("red")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Blue')].value",hasItem("blue")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Green')].value",hasItem("green")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.color.title", equalTo("Color")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].multiple", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].required", hasItem(false)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Red')].value", hasItem("red")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Blue')].value", hasItem("blue")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Green')].value", hasItem("green")));
 	}
 
 	@Test
 	public void testGenerate_RadioBox() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(RadioBoxForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.civilState.title",equalTo("Civil State")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].readOnly",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Maried')].value",hasItem("COMMITTED")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Single')].value",hasItem("HAPPY")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Divorced')].value",hasItem("RELEASED")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.civilState.title", equalTo("Civil State")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].readOnly", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Maried')].value",
+				hasItem("COMMITTED")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Single')].value", hasItem("HAPPY")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Divorced')].value",
+				hasItem("RELEASED")));
 
 	}
 
 	@Test
 	public void testGenerate_ComboBox() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(ComboBoxForm.class);
-		
+
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.currency.title",equalTo("Currency")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].disabled",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].multiple",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].required",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].autofocus",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].titleMap[?(@.name=='Euro')].value",hasItem("euro")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].titleMap[?(@.name=='Dollar')].value",hasItem("dollar")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.currency.title", equalTo("Currency")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].disabled", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].multiple", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].required", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].autofocus", hasItem(false)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='currency')].titleMap[?(@.name=='Euro')].value", hasItem("euro")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='currency')].titleMap[?(@.name=='Dollar')].value", hasItem("dollar")));
 
 	}
 
 	@Test
 	public void testGenerate_ComboBox_WithCustomValuesContainer() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(ComboBoxForm2.class);
-		
+
 		String json = new ObjectMapper().writeValueAsString(ui);
-		Assert.assertThat(json, hasJsonPath("$.schema.properties.gender.title",equalTo("Gender")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')]",hasSize(1)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].disabled",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].multiple",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].required",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].autofocus",hasItem(false)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Male')].value",hasItem("male")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Female')].value",hasItem("female")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.gender.title", equalTo("Gender")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].disabled", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].multiple", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].required", hasItem(false)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].autofocus", hasItem(false)));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Male')].value", hasItem("male")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Female')].value", hasItem("female")));
 
 	}
-	
-	
 
 }
 
 class TextFieldForm implements Serializable {
 
-	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
+	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field", readOnly = true)
 	private String firstName;
 
 	public String getFirstName() {
@@ -211,7 +278,7 @@ class TextFieldForm implements Serializable {
 
 }
 
-class TextFieldForm2 implements Serializable {
+class TextFieldFormRight implements Serializable {
 
 	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonRight = "@", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
 	private String firstName;
@@ -222,7 +289,7 @@ class TextFieldForm2 implements Serializable {
 
 }
 
-class TextFieldForm3 implements Serializable {
+class TextFieldFormLeft implements Serializable {
 
 	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonLeft = "@", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
 	private String firstName;
@@ -233,12 +300,32 @@ class TextFieldForm3 implements Serializable {
 
 }
 
-class NumberForm implements Serializable {
+class IntegerNumberForm implements Serializable {
 
-	@Number(title = "Number of children", placeHolder = "Number of children", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	@Number(title = "Integer Number", placeHolder = "Integer Number PlaceHolder", description = "This is an integer number", noTitle = true, validationMessage = "this is a validation msg for an integer value", readOnly = true)
 	private Integer number;
 
 	public Integer getNumber() {
+		return number;
+	}
+}
+
+class LongNumberForm implements Serializable {
+
+	@Number(title = "Long Number", placeHolder = "Long Number PlaceHolder", description = "This is a long number", noTitle = true, validationMessage = "this is a validation msg for long value", readOnly = true)
+	private Long number;
+
+	public Long getNumber() {
+		return number;
+	}
+}
+
+class DoubleNumberForm implements Serializable {
+
+	@Number(title = "Double Number", placeHolder = "Double Number PlaceHolder", description = "This is a double number", noTitle = true, validationMessage = "this is a validation msg for double value", readOnly = true)
+	private Double number;
+
+	public Double getNumber() {
 		return number;
 	}
 }

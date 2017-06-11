@@ -11,8 +11,8 @@ public class UiForm implements Serializable {
 	private ArrayNode form;
 
 	public UiForm(JsonSchema schema, ArrayNode form) {
-		this.schema = schema;
-		this.form = form;
+		setSchema(schema);
+		setForm(form);
 	}
 
 	public JsonSchema getSchema() {
