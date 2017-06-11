@@ -78,7 +78,8 @@ public class UiFormSchemaGeneratorTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonLeft",hasItem("@")));
 
 	}
-
+	
+	
 	@Test
 	public void testGenerate_Number() throws JsonProcessingException {
 		UiForm ui = UiFormSchemaGenerator.get().generate(NumberForm.class);
@@ -91,6 +92,38 @@ public class UiFormSchemaGeneratorTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type",hasItem("number")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly",hasItem(true)));
+
+	}
+	
+	@Test
+	public void testGenerate_Number_WithRightAddon() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(NumberForm2.class);
+		String json = new ObjectMapper().writeValueAsString(ui);
+		//Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title",equalTo("Number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].description",hasItem("This is a number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].placeholder",hasItem("Number of children")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type",hasItem("number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].fieldAddonRight",hasItem("@")));
+
+	}
+	
+	@Test
+	public void testGenerate_Number_WithLeftAddon() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(NumberForm3.class);
+		String json = new ObjectMapper().writeValueAsString(ui);
+		//Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title",equalTo("Number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].description",hasItem("This is a number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].placeholder",hasItem("Number of children")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type",hasItem("number")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].fieldAddonLeft",hasItem("@")));
 
 	}
 
@@ -107,6 +140,40 @@ public class UiFormSchemaGeneratorTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].type",hasItem("password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly",hasItem(true)));
+	}
+	
+	@Test
+	public void testGenerate_Password_WithFieldAddonLeft() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(PasswordForm3.class);
+		
+		String json = new ObjectMapper().writeValueAsString(ui);
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title",equalTo("Password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description",hasItem("This is password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].placeholder",hasItem("Please set you password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].validationMessage",hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].type",hasItem("password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].fieldAddonLeft",hasItem("@")));
+
+	}
+	
+	@Test
+	public void testGenerate_Password_WithFieldAddonRight() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(PasswordForm2.class);
+		
+		String json = new ObjectMapper().writeValueAsString(ui);
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title",equalTo("Password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description",hasItem("This is password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].placeholder",hasItem("Please set you password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].validationMessage",hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].type",hasItem("password")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly",hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].fieldAddonRight",hasItem("@")));
+
 	}
 
 	@Test
@@ -243,9 +310,49 @@ class NumberForm implements Serializable {
 	}
 }
 
+class NumberForm2 implements Serializable {
+
+	@Number(title = "Number of children", placeHolder = "Number of children", fieldAddonRight = "@", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	private Integer number;
+
+	public Integer getNumber() {
+		return number;
+	}
+}
+
+class NumberForm3 implements Serializable {
+
+	@Number(title = "Number of children", placeHolder = "Number of children", fieldAddonLeft = "@", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	private Integer number;
+
+	public Integer getNumber() {
+		return number;
+	}
+}
+
 class PasswordForm implements Serializable {
 
 	@Password(title = "Password", placeHolder = "Please set you password", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+}
+
+class PasswordForm2 implements Serializable {
+
+	@Password(title = "Password", placeHolder = "Please set you password", fieldAddonRight = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	private String password;
+
+	public String getPassword() {
+		return password;
+	}
+}
+
+class PasswordForm3 implements Serializable {
+
+	@Password(title = "Password", placeHolder = "Please set you password", fieldAddonLeft = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
 	private String password;
 
 	public String getPassword() {
