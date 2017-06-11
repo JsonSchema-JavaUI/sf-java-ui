@@ -22,7 +22,7 @@ public class DemoForm implements Serializable {
 	
 	
 //	@Tab(title = "Contact", index = 2)
-	@Password(title = "Password", placeHolder = "Please set you password",description = "This is password")
+	@Password(title = "Password", placeHolder = "Please set you password",minLenght=6,description = "This is password", validationMessage = "The password must contain a minimum of 6  characters  ")
 	private String password;
 
 	@Tab(title = "Info", index = 1)
