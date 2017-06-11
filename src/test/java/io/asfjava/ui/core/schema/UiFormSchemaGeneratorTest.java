@@ -247,6 +247,46 @@ public class UiFormSchemaGeneratorTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
 
 	}
+	
+	public void testGenerate_TextArea_WithFieldAddOnLeft() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(TextAreaForm2.class);
+
+		String json = new ObjectMapper().writeValueAsString(ui);
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title", equalTo("Address")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description", hasItem("This is textarea")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='address')].placeholder", hasItem("Fill your address please")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='address')].validationMessage", hasItem("this is a validation msg")));
+		// Assert.assertThat(json,
+		// hasJsonPath("$.form[?(@.key=='password')].type",hasItem("textArea")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].fieldAddonLeft", hasItem("@")));
+
+
+	}
+	
+	public void testGenerate_TextArea_WithFieldAddOnRight() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(TextAreaForm3.class);
+
+		String json = new ObjectMapper().writeValueAsString(ui);
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title", equalTo("Address")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]", hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description", hasItem("This is textarea")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='address')].placeholder", hasItem("Fill your address please")));
+		Assert.assertThat(json,
+				hasJsonPath("$.form[?(@.key=='address')].validationMessage", hasItem("this is a validation msg")));
+		// Assert.assertThat(json,
+		// hasJsonPath("$.form[?(@.key=='password')].type",hasItem("textArea")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].fieldAddonRight", hasItem("@")));
+
+
+	}
 
 	@Test
 	public void testGenerate_CheckBox() throws JsonProcessingException {
@@ -443,6 +483,26 @@ class PasswordForm3 implements Serializable {
 
 	public String getPassword() {
 		return password;
+	}
+}
+
+class TextAreaForm2 implements Serializable {
+
+	@TextArea(title = "Address", placeHolder = "Fill your address please", fieldAddonLeft = "@", description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	private String address;
+
+	public String getAddress() {
+		return address;
+	}
+}
+
+class TextAreaForm3 implements Serializable {
+
+	@TextArea(title = "Address", placeHolder = "Fill your address please",fieldAddonRight = "@", description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+	private String address;
+
+	public String getAddress() {
+		return address;
 	}
 }
 
