@@ -39,7 +39,7 @@ public class UiFormSchemaGeneratorTest {
 
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title",equalTo("First Name")));
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern",equalTo("[a-z]")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",hasItem("This is a description for your first name field")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder",hasItem("Your first name")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].validationMessage",hasItem("this is a validation msg")));
@@ -52,7 +52,7 @@ public class UiFormSchemaGeneratorTest {
 		UiForm ui = UiFormSchemaGenerator.get().generate(NumberForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
 		//Assert.assertThat(json, hasJsonPath("$.schema.properties.number.title",equalTo("Number")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].description",hasItem("This is a number")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].placeholder",hasItem("Number of children")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].validationMessage",hasItem("this is a validation msg")));
@@ -68,7 +68,7 @@ public class UiFormSchemaGeneratorTest {
 		
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.password.title",equalTo("Password")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].description",hasItem("This is password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].placeholder",hasItem("Please set you password")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].validationMessage",hasItem("this is a validation msg")));
@@ -83,7 +83,7 @@ public class UiFormSchemaGeneratorTest {
 		
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.address.title",equalTo("Address")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].description",hasItem("This is textarea")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].placeholder",hasItem("Fill your address please")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].validationMessage",hasItem("this is a validation msg")));
@@ -98,15 +98,12 @@ public class UiFormSchemaGeneratorTest {
 		UiForm ui = UiFormSchemaGenerator.get().generate(CheckBoxForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.color.title",equalTo("Color")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].multiple",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].required",hasItem(true)));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[0].name",hasItem("Red")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[0].value",hasItem("red")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[1].name",hasItem("Blue")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[1].value",hasItem("blue")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[2].name",hasItem("Green")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[2].value",hasItem("green")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Red')].value",hasItem("red")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Blue')].value",hasItem("blue")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Green')].value",hasItem("green")));
 	}
 
 	@Test
@@ -114,7 +111,7 @@ public class UiFormSchemaGeneratorTest {
 		UiForm ui = UiFormSchemaGenerator.get().generate(CheckBoxForm2.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.color.title",equalTo("Color")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].multiple",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].required",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Red')].value",hasItem("red")));
@@ -127,7 +124,7 @@ public class UiFormSchemaGeneratorTest {
 		UiForm ui = UiFormSchemaGenerator.get().generate(RadioBoxForm.class);
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.civilState.title",equalTo("Civil State")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].readOnly",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Maried')].value",hasItem("COMMITTED")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Single')].value",hasItem("HAPPY")));
@@ -141,7 +138,7 @@ public class UiFormSchemaGeneratorTest {
 		
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.currency.title",equalTo("Currency")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].disabled",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].multiple",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='currency')].required",hasItem(true)));
@@ -157,7 +154,7 @@ public class UiFormSchemaGeneratorTest {
 		
 		String json = new ObjectMapper().writeValueAsString(ui);
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.gender.title",equalTo("Gender")));
-		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].key",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].disabled",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].multiple",hasItem(false)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].required",hasItem(false)));
