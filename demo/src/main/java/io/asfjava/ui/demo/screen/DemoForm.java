@@ -55,7 +55,7 @@ public class DemoForm implements Serializable {
 	private String civilState;
 
 //	@Tab(title = "Contact", index = 2)
-	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea")
+	@TextArea(title = "Address", placeHolder = "Fill your address please",maxLenght=30, description = "This is textarea" , validationMessage="Max 30 charactres")
 	private String address;
 
 	@Tab(title = "Additional Info", index = 3)
