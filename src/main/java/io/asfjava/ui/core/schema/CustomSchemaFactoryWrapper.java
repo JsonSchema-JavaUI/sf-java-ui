@@ -8,14 +8,6 @@ import com.fasterxml.jackson.module.jsonSchema.factories.WrapperFactory;
 class CustomSchemaFactoryWrapper extends SchemaFactoryWrapper {
 
 	private static class SFSchemaFactoryWrapperFactory extends WrapperFactory {
-		@Override
-		public SchemaFactoryWrapper getWrapper(SerializerProvider p) {
-			SchemaFactoryWrapper wrapper = new CustomSchemaFactoryWrapper();
-			if (p != null) {
-				wrapper.setProvider(p);
-			}
-			return wrapper;
-		}
 
 		@Override
 		public SchemaFactoryWrapper getWrapper(SerializerProvider p, VisitorContext rvc) {
