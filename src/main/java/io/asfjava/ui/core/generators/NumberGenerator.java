@@ -19,6 +19,16 @@ public class NumberGenerator implements FormDefinitionGenerator {
 			fieldFormDefinition.put("title", title);
 		}
 		
+		String fieldAddonLeft = annotation.fieldAddonLeft();
+		if (!fieldAddonLeft.isEmpty()) {
+			fieldFormDefinition.put("fieldAddonLeft", fieldAddonLeft);
+		}
+		
+		String fieldAddonRight = annotation.fieldAddonRight();
+		if (!fieldAddonRight.isEmpty()) {
+			fieldFormDefinition.put("fieldAddonRight", fieldAddonRight);
+		}
+		
 		String description = annotation.description();
 		if (!description.isEmpty()) {
 			fieldFormDefinition.put("description", description);

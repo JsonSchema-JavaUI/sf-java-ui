@@ -14,6 +14,10 @@ public @interface Password {
 	String placeHolder() default "";
 
 	String description() default "";
+	
+	String fieldAddonLeft() default"";
+	
+	String fieldAddonRight() default"";
 
 	boolean noTitle() default false;
 

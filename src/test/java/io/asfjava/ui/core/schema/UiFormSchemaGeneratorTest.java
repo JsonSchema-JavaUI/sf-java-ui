@@ -46,6 +46,38 @@ public class UiFormSchemaGeneratorTest {
 		//Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].type",hasItem("textField")));
 		
 	}
+	
+	@Test
+	public void testGenerate_textField_WithFieldAddonRight() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldForm2.class);
+		String json = new ObjectMapper().writeValueAsString(ui);
+		
+
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title",equalTo("First Name")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern",equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",hasItem("This is a description for your first name field")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder",hasItem("Your first name")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].validationMessage",hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonRight",hasItem("@")));
+
+	}
+	
+	@Test
+	public void testGenerate_textField_WithFieldAddonLeft() throws JsonProcessingException {
+		UiForm ui = UiFormSchemaGenerator.get().generate(TextFieldForm3.class);
+		String json = new ObjectMapper().writeValueAsString(ui);
+		
+
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title",equalTo("First Name")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern",equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]",hasSize(1)));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",hasItem("This is a description for your first name field")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].placeholder",hasItem("Your first name")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].validationMessage",hasItem("this is a validation msg")));
+		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].fieldAddonLeft",hasItem("@")));
+
+	}
 
 	@Test
 	public void testGenerate_Number() throws JsonProcessingException {
@@ -163,12 +195,36 @@ public class UiFormSchemaGeneratorTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Female')].value",hasItem("female")));
 
 	}
+	
+	
 
 }
 
 class TextFieldForm implements Serializable {
 
 	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
+	private String firstName;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+}
+
+class TextFieldForm2 implements Serializable {
+
+	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonRight = "@", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
+	private String firstName;
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+}
+
+class TextFieldForm3 implements Serializable {
+
+	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonLeft = "@", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
 	private String firstName;
 
 	public String getFirstName() {
