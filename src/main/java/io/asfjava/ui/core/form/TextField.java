@@ -15,6 +15,10 @@ public @interface TextField {
 
 	String description() default "";
 	
+	String fieldAddonLeft() default"";
+	
+	String fieldAddonRight() default"";
+	
 	String pattern() default "";
 
 	boolean noTitle() default false;
