@@ -13,7 +13,11 @@ public @interface Number {
 
 	String placeHolder() default "";
 
-	String description() default "";
+	String description() default "";	
+	
+	String fieldAddonLeft() default"";
+	
+	String fieldAddonRight() default"";
 
 	boolean noTitle() default false;
 
