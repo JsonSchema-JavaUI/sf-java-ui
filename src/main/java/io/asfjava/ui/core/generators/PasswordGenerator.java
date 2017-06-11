@@ -18,6 +18,17 @@ public class PasswordGenerator implements FormDefinitionGenerator {
 		if (!description.isEmpty()) {
 			fieldFormDefinition.put("description", description);
 		}
+		
+		String fieldAddonLeft = annotation.fieldAddonLeft();
+		if (!fieldAddonLeft.isEmpty()) {
+			fieldFormDefinition.put("fieldAddonLeft", fieldAddonLeft);
+		}
+		
+		String fieldAddonRight = annotation.fieldAddonRight();
+		if (!fieldAddonRight.isEmpty()) {
+			fieldFormDefinition.put("fieldAddonRight", fieldAddonRight);
+		}
+		
 		String placeHolder = annotation.placeHolder();
 		if (!placeHolder.isEmpty()) {
 			fieldFormDefinition.put("placeholder", placeHolder);
