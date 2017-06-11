@@ -15,6 +15,10 @@ public @interface TextArea {
 
 	String description() default "";
 	
+	int minLenght() default 0;
+	
+	int maxLenght() default Integer.MAX_VALUE;
+	
 	String fieldAddonLeft() default"";
 	
 	String fieldAddonRight() default"";
