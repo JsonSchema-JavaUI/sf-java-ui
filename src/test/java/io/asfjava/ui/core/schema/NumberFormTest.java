@@ -7,16 +7,32 @@ import static org.hamcrest.Matchers.hasSize;
 
 import java.io.Serializable;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.asfjava.ui.core.GeneratorFactoryInitializer;
 import io.asfjava.ui.core.form.Number;
 import io.asfjava.ui.dto.UiForm;
 
 public class NumberFormTest {
+	
+	static GeneratorFactoryInitializer generatorFactoryInitializer;
+
+	@BeforeClass
+	public static void setUpBeforeClass() {
+		generatorFactoryInitializer = new GeneratorFactoryInitializer();
+		generatorFactoryInitializer.contextInitialized(null);
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() {
+		generatorFactoryInitializer.contextDestroyed(null);
+	}
 	
 	@Test
 	public void testGenerate_Number_For_Integer() throws JsonProcessingException {
