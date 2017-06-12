@@ -41,6 +41,8 @@ public class TextFieldFormTest {
 
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title", equalTo("First Name")));
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern", equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.minLength", equalTo(6)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.maxLength", equalTo(10)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]", hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",
 				hasItem("This is a description for your first name field")));
@@ -59,6 +61,8 @@ public class TextFieldFormTest {
 
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.title", equalTo("First Name")));
 		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.pattern", equalTo("[a-z]")));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.minLength", equalTo(6)));
+		Assert.assertThat(json, hasJsonPath("$.schema.properties.firstName.maxLength", equalTo(10)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')]", hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='firstName')].description",
 				hasItem("This is a description for your first name field")));
@@ -90,7 +94,7 @@ public class TextFieldFormTest {
 
 class TextFieldForm implements Serializable {
 
-	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field", readOnly = true)
+	@TextField(title = "First Name", placeHolder = "Your first name", pattern = "[a-z]",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field", readOnly = true)
 	private String firstName;
 
 	public String getFirstName() {
@@ -101,7 +105,7 @@ class TextFieldForm implements Serializable {
 
 class TextFieldFormRight implements Serializable {
 
-	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonRight = "@", pattern = "[a-z]", noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
+	@TextField(title = "First Name", placeHolder = "Your first name", fieldAddonRight = "@", pattern = "[a-z]",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", description = "This is a description for your first name field")
 	private String firstName;
 
 	public String getFirstName() {
@@ -120,3 +124,5 @@ class TextFieldFormLeft implements Serializable {
 	}
 
 }
+
+
