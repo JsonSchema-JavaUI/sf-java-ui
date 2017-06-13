@@ -15,6 +15,12 @@ public @interface Password {
 
 	String description() default "";
 	
+	int minLenght() default 0;
+	
+	int maxLenght() default Integer.MAX_VALUE;
+	
+	String pattern() default "";
+
 	String fieldAddonLeft() default"";
 	
 	String fieldAddonRight() default"";

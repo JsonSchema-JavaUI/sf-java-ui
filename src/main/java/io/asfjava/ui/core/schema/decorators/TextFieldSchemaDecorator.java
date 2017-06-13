@@ -18,6 +18,12 @@ public class TextFieldSchemaDecorator implements SchemaDecorator {
 			if (annotation.pattern() != null) {
 				((StringSchema) jsonschema).setPattern(annotation.pattern());
 			}
+			if (annotation.minLenght() != 0) {
+				((StringSchema) jsonschema).setMinLength(annotation.minLenght());
+			}
+			if (annotation.maxLenght() != Integer.MAX_VALUE) {
+				((StringSchema) jsonschema).setMaxLength(annotation.maxLenght());
+			}
 		}
 	}
 

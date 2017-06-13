@@ -14,6 +14,13 @@ public class TextAreaSchemaDecorator implements SchemaDecorator {
 		if (annotation != null && annotation.title() != null) {
 			((StringSchema) jsonschema).setTitle(annotation.title());
 		}
+		
+		if (annotation.minLenght() != 0) {
+			((StringSchema) jsonschema).setMinLength(annotation.minLenght());
+		}
+		if (annotation.maxLenght() != Integer.MAX_VALUE) {
+			((StringSchema) jsonschema).setMaxLength(annotation.maxLenght());
+		}
 	}
 
 	@Override
