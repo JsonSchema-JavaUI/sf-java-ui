@@ -70,13 +70,13 @@ public final class UiFormSchemaGenerator {
 			tabNode.put("title", tabElements.getKey());
 			ArrayNode tabItems = mapper.createArrayNode();
 			tabElements.getValue().stream().forEach(tabItems::add);
-			tabNode.put("items", tabItems);
+			tabNode.set("items", tabItems);
 			tabs.add(tabNode);
 		});
 
 		ObjectNode tabsNode = mapper.createObjectNode();
 		tabsNode.put("type", "tabs");
-		tabsNode.put("tabs", tabs);
+		tabsNode.set("tabs", tabs);
 		return tabsNode;
 
 	}
