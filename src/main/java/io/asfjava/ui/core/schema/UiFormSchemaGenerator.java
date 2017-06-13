@@ -21,6 +21,7 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
 import io.asfjava.ui.core.FormDefinitionGeneratorFactory;
+import io.asfjava.ui.core.form.Index;
 import io.asfjava.ui.core.form.Tab;
 import io.asfjava.ui.dto.UiForm;
 
@@ -81,8 +82,15 @@ public final class UiFormSchemaGenerator {
 	}
 
 	private Map<Field, JsonNode> initFieldFormDefinition(ObjectMapper mapper, Field[] declaredFields) {
-		Map<Field, JsonNode> nodes = new HashMap<>();
-		Arrays.stream(declaredFields).forEach(field -> buildFormDefinition(nodes, mapper, field));
+		Map<Field, JsonNode> nodes = new LinkedHashMap<>();
+		
+		Predicate<? super Field> checkIndexAnnotation = field -> field.isAnnotationPresent(Index.class);
+		Comparator<? super Field> fieldIndexComparator = (field1, field2) -> Integer
+				.compare(field1.getAnnotation(Index.class).value(), field2.getAnnotation(Index.class).value());
+
+		Arrays.stream(declaredFields).filter(checkIndexAnnotation).sorted(fieldIndexComparator)
+				.forEachOrdered(field -> buildFormDefinition(nodes, mapper, field));
+		
 		return nodes;
 	}
 
