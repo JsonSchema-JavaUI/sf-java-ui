@@ -33,6 +33,13 @@ import io.asfjava.ui.dto.UiForm;
 
 public final class UiFormSchemaGenerator {
 
+	private static final String KEY_FIELDSET = "fieldset";
+	private static final String KEY_ON_CLICK = "onClick";
+	private static final String KEY_ACTIONS = "actions";
+	private static final String KEY_TABS = "tabs";
+	private static final String KEY_TITLE = "title";
+	private static final String KEY_TYPE = "type";
+	private static final String KEY_ITEMS = "items";
 	private static UiFormSchemaGenerator instance;
 
 	public UiForm generate(Class<? extends Serializable> formDto) throws JsonMappingException {
@@ -78,13 +85,13 @@ public final class UiFormSchemaGenerator {
 			ArrayNode formDefinition) {
 		Optional<ActionsGroup> actionsAnnotation = Optional.ofNullable(formDto.getAnnotation(ActionsGroup.class));
 		actionsAnnotation.ifPresent(actions -> {
-			actionsNode.put("type", "actions");
+			actionsNode.put(KEY_TYPE, KEY_ACTIONS);
 			ArrayNode items = mapper.createArrayNode();
 			Arrays.stream(actions.value()).forEach(action -> {
 				ObjectNode node = buildActionNode(mapper, action);
 				items.add(node);
 			});
-			actionsNode.set("items", items);
+			actionsNode.set(KEY_ITEMS, items);
 
 			formDefinition.add(actionsNode);
 		});
@@ -92,9 +99,9 @@ public final class UiFormSchemaGenerator {
 
 	private ObjectNode buildActionNode(ObjectMapper mapper, Action action) {
 		ObjectNode node = mapper.createObjectNode();
-		node.put("type", action.type());
-		node.put("title", action.title());
-		node.put("onClick", action.onClick());
+		node.put(KEY_TYPE, action.type());
+		node.put(KEY_TITLE, action.title());
+		node.put(KEY_ON_CLICK, action.onClick());
 		return node;
 	}
 
@@ -110,8 +117,8 @@ public final class UiFormSchemaGenerator {
 		ArrayNode groups = mapper.createArrayNode();
 
 		ObjectNode tabsNode = mapper.createObjectNode();
-		tabsNode.put("type", "fieldset");
-		tabsNode.set("items", groups);
+		tabsNode.put(KEY_TYPE, KEY_FIELDSET);
+		tabsNode.set(KEY_ITEMS, groups);
 		return tabsNode;
 
 	}
@@ -138,16 +145,16 @@ public final class UiFormSchemaGenerator {
 
 		groupedFieldsByTab.entrySet().stream().forEachOrdered(tabElements -> {
 			ObjectNode tabNode = mapper.createObjectNode();
-			tabNode.put("title", tabElements.getKey());
+			tabNode.put(KEY_TITLE, tabElements.getKey());
 			ArrayNode tabItems = mapper.createArrayNode();
 			tabElements.getValue().stream().forEach(tabItems::add);
-			tabNode.set("items", tabItems);
+			tabNode.set(KEY_ITEMS, tabItems);
 			tabs.add(tabNode);
 		});
 		if (tabs.size() > 0) {
 			ObjectNode tabsNode = mapper.createObjectNode();
-			tabsNode.put("type", "tabs");
-			tabsNode.set("tabs", tabs);
+			tabsNode.put(KEY_TYPE, KEY_TABS);
+			tabsNode.set(KEY_TABS, tabs);
 			return tabsNode;
 		}
 		return null;
