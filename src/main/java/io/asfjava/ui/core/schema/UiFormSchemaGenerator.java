@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,9 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 
 import io.asfjava.ui.core.FormDefinitionGeneratorFactory;
+import io.asfjava.ui.core.form.Action;
+import io.asfjava.ui.core.form.ActionsGroup;
+import io.asfjava.ui.core.form.FieldSet;
 import io.asfjava.ui.core.form.Index;
 import io.asfjava.ui.core.form.Tab;
 import io.asfjava.ui.dto.UiForm;
@@ -38,39 +42,81 @@ public final class UiFormSchemaGenerator {
 		JsonSchemaGenerator schemaGen = initSchemaGen(mapper);
 		JsonSchema schema = generateSchema(formDto, schemaGen);
 
-		Map<Field, JsonNode> nodes = initFieldFormDefinition(mapper, declaredFields);
+		Map<Field, JsonNode> nodes = initFieldsFormDefinition(mapper, declaredFields);
 
 		Map<Field, JsonNode> sortedNodes = reorderFieldsBasedOnIndex(nodes);
 
-		handlerGroupedFields();
+		handlerGroupedFields(mapper, declaredFields, sortedNodes);
 
-		ObjectNode tabbedFields = handleTabbedFields(mapper, declaredFields, sortedNodes);
+		Optional<ObjectNode> tabbedFields = Optional
+				.ofNullable(handleTabbedFields(mapper, declaredFields, sortedNodes));
 
 		ArrayNode formDefinition = mapper.createArrayNode();
-		formDefinition.add(tabbedFields);
+		tabbedFields.ifPresent(formDefinition::add);
 		sortedNodes.entrySet().stream().forEach(nodesElement -> formDefinition.add(nodesElement.getValue()));
+
+		handleActionsAnnotation(mapper, formDto, formDefinition);
 
 		return new UiForm(schema, formDefinition);
 	}
 
-	private Map<Field, JsonNode> reorderFieldsBasedOnIndex(Map<Field, JsonNode> nodes) {
+	private void handleActionsAnnotation(ObjectMapper mapper, Class<? extends Serializable> formDto,
+			ArrayNode formDefinition) {
+		ObjectNode groupedActionsNode = mapper.createObjectNode();
+		ObjectNode actionsNode = mapper.createObjectNode();
 
-		Comparator<? super Entry<Field, JsonNode>> tabIndexComparator = (entry1, entry2) -> {
-
-			Index field1Index = entry1.getKey().getAnnotation(Index.class);
-			Index field2Index = entry2.getKey().getAnnotation(Index.class);
-
-			return Integer.compare((field1Index != null ? field1Index.value() : Integer.MAX_VALUE),
-					field2Index != null ? field2Index.value() : Integer.MAX_VALUE);
-		};
-
-		return nodes.entrySet().stream().sorted(tabIndexComparator).collect(Collectors.toMap(Map.Entry::getKey,
-				Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
+		buildActions(mapper, formDto, actionsNode, formDefinition);
+		buildGroupedActions(mapper, formDto, groupedActionsNode, formDefinition);
 	}
 
-	private void handlerGroupedFields() {
-		// TODO Grouping fieldset must handle it
+	private void buildActions(ObjectMapper mapper, Class<? extends Serializable> formDto, ObjectNode actionsNode,
+			ArrayNode formDefinition) {
+
+		Action[] actionsAnnotations = formDto.getAnnotationsByType(Action.class);
+		Arrays.stream(actionsAnnotations).forEach(action -> {
+			formDefinition.add(buildActionNode(mapper, action));
+		});
+	}
+
+	private void buildGroupedActions(ObjectMapper mapper, Class<? extends Serializable> formDto, ObjectNode actionsNode,
+			ArrayNode formDefinition) {
+		Optional<ActionsGroup> actionsAnnotation = Optional.ofNullable(formDto.getAnnotation(ActionsGroup.class));
+		actionsAnnotation.ifPresent(actions -> {
+			actionsNode.put("type", "actions");
+			ArrayNode items = mapper.createArrayNode();
+			Arrays.stream(actions.value()).forEach(action -> {
+				ObjectNode node = buildActionNode(mapper, action);
+				items.add(node);
+			});
+			actionsNode.set("items", items);
+
+			formDefinition.add(actionsNode);
+		});
+	}
+
+	private ObjectNode buildActionNode(ObjectMapper mapper, Action action) {
+		ObjectNode node = mapper.createObjectNode();
+		node.put("type", action.type());
+		node.put("title", action.title());
+		node.put("onClick", action.onClick());
+		return node;
+	}
+
+	private ObjectNode handlerGroupedFields(ObjectMapper mapper, Field[] declaredFields,
+			Map<Field, JsonNode> sortedNodes) {
+		Predicate<? super Field> checkFieldSetAnnotation = field -> field.isAnnotationPresent(FieldSet.class);
+
+		Map<String, List<JsonNode>> groupedFields = new LinkedHashMap<>();
+
+		Arrays.stream(declaredFields).filter(checkFieldSetAnnotation)
+				.forEach(field -> groupFieldsByTab(sortedNodes, field, groupedFields));
+
+		ArrayNode groups = mapper.createArrayNode();
+
+		ObjectNode tabsNode = mapper.createObjectNode();
+		tabsNode.put("type", "fieldset");
+		tabsNode.set("items", groups);
+		return tabsNode;
 
 	}
 
@@ -83,7 +129,6 @@ public final class UiFormSchemaGenerator {
 		Comparator<? super Field> fieldIndexComparator = (entry1, entry2) -> {
 			Index field1Index = entry1.getAnnotation(Index.class);
 			Index field2Index = entry2.getAnnotation(Index.class);
-
 			return Integer.compare((field1Index != null ? field1Index.value() : Integer.MAX_VALUE),
 					field2Index != null ? field2Index.value() : Integer.MAX_VALUE);
 		};
@@ -103,15 +148,17 @@ public final class UiFormSchemaGenerator {
 			tabNode.set("items", tabItems);
 			tabs.add(tabNode);
 		});
-
-		ObjectNode tabsNode = mapper.createObjectNode();
-		tabsNode.put("type", "tabs");
-		tabsNode.set("tabs", tabs);
-		return tabsNode;
+		if (tabs.size() > 0) {
+			ObjectNode tabsNode = mapper.createObjectNode();
+			tabsNode.put("type", "tabs");
+			tabsNode.set("tabs", tabs);
+			return tabsNode;
+		}
+		return null;
 
 	}
 
-	private Map<Field, JsonNode> initFieldFormDefinition(ObjectMapper mapper, Field[] declaredFields) {
+	private Map<Field, JsonNode> initFieldsFormDefinition(ObjectMapper mapper, Field[] declaredFields) {
 		Map<Field, JsonNode> nodes = new HashMap<>();
 
 		Arrays.stream(declaredFields).forEach(field -> buildFormDefinition(nodes, mapper, field));
@@ -152,6 +199,22 @@ public final class UiFormSchemaGenerator {
 					generator.generate(fieldFormDefinition, field);
 					nodes.put(field, fieldFormDefinition);
 				});
+	}
+
+	private Map<Field, JsonNode> reorderFieldsBasedOnIndex(Map<Field, JsonNode> nodes) {
+
+		Comparator<? super Entry<Field, JsonNode>> tabIndexComparator = (entry1, entry2) -> {
+
+			Index field1Index = entry1.getKey().getAnnotation(Index.class);
+			Index field2Index = entry2.getKey().getAnnotation(Index.class);
+
+			return Integer.compare((field1Index != null ? field1Index.value() : Integer.MAX_VALUE),
+					field2Index != null ? field2Index.value() : Integer.MAX_VALUE);
+		};
+
+		return nodes.entrySet().stream().sorted(tabIndexComparator).collect(Collectors.toMap(Map.Entry::getKey,
+				Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+
 	}
 
 	public static UiFormSchemaGenerator get() {

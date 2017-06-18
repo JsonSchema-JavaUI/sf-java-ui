@@ -8,7 +8,7 @@
     <script src="../bower_components/angular-schema-form-bootstrap/bootstrap-decorator.min.js"></script>
     <script src="../bower_components/lodash/lodash.js"></script>
 
-<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
     <script>
 
@@ -23,6 +23,13 @@
     	}
     	function errorCallback(error){
     	    //error code
+    	}
+    	
+    	$scope.goToNext = function($event,item){
+    		alert("Click on next button")
+    	}
+    	$scope.goToPrevious = function(){
+    		alert("Click on previous button")
     	}
       });
 
