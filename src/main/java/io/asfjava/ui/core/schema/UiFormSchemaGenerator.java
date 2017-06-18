@@ -63,13 +63,12 @@ public final class UiFormSchemaGenerator {
 	private void handleActionsAnnotation(ObjectMapper mapper, Class<? extends Serializable> formDto,
 			ArrayNode formDefinition) {
 		ObjectNode groupedActionsNode = mapper.createObjectNode();
-		ObjectNode actionsNode = mapper.createObjectNode();
 
-		buildActions(mapper, formDto, actionsNode, formDefinition);
+		buildActions(mapper, formDto, formDefinition);
 		buildGroupedActions(mapper, formDto, groupedActionsNode, formDefinition);
 	}
 
-	private void buildActions(ObjectMapper mapper, Class<? extends Serializable> formDto, ObjectNode actionsNode,
+	private void buildActions(ObjectMapper mapper, Class<? extends Serializable> formDto,
 			ArrayNode formDefinition) {
 
 		Action[] actionsAnnotations = formDto.getAnnotationsByType(Action.class);
