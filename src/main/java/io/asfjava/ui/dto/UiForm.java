@@ -7,8 +7,8 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchema;
 
 public class UiForm implements Serializable {
 
-	private JsonSchema schema;
-	private ArrayNode form;
+	private transient JsonSchema schema;
+	private transient ArrayNode form;
 
 	public UiForm(JsonSchema schema, ArrayNode form) {
 		setSchema(schema);
