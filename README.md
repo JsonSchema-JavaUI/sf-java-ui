@@ -7,6 +7,7 @@ Schema Form Java based library allow developers to define schema and form using 
 [![Technical debt ratio](https://sonarcloud.io/api/badges/measure?key=io.sfjava.ui:sf-java-ui&metric=sqale_debt_ratio)](https://sonarcloud.io/dashboard?id=io.sfjava.ui%3Asf-java-ui)
 [![Coverage Status](https://coveralls.io/repos/github/JsonSchema-JavaUI/sf-java-ui/badge.svg?branch=master)](https://coveralls.io/github/JsonSchema-JavaUI/sf-java-ui?branch=master)
 [ ![Download](https://api.bintray.com/packages/jsonschema-javaui/SF-Java-UI/sf-java-ui/images/download.svg) ](https://bintray.com/jsonschema-javaui/SF-Java-UI/sf-java-ui/_latestVersion)
+[![PR Stats](http://issuestats.com/github/JsonSchema-JavaUI/sf-java-ui/badge/pr)](http://issuestats.com/github/JsonSchema-JavaUI/sf-java-ui) [![Issue Stats](http://issuestats.com/github/JsonSchema-JavaUI/sf-java-ui/badge/issue)](http://issuestats.com/github/JsonSchema-JavaUI/sf-java-ui)
 
 The SF Java UI library is a server side extension for the [Json Schema Form](https://github.com/json-schema-form) library. It make your development easier, you will not care about how to define your schema and your screen form definition. Just annotate your fields, and get your screen.
 
