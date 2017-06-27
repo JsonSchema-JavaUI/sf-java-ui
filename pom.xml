@@ -4,7 +4,7 @@
 
 	<groupId>io.sfjava.ui</groupId>
 	<artifactId>sf-java-ui</artifactId>
-	<version>0.0.1.alpha</version>
+	<version>0.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>sf-java-ui</name>
@@ -124,6 +124,43 @@
 					<jacocoReports>
 						<jacocoReport>${project.reporting.outputDirectory}/jacoco-ut/jacoco.xml</jacocoReport>
 					</jacocoReports>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>net.nicoulaj.maven.plugins</groupId>
+				<artifactId>checksum-maven-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>artifacts</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- put your configurations here -->
 				</configuration>
 			</plugin>
 		</plugins>
