@@ -18,8 +18,8 @@
     "version": {
         "name": "0.0.1-alpha",
         "desc": "This is the first alpha release",
-        "released": "2015-06-27",
-        "vcs_tag": "0.0.1-alpha",
+        "released": "2017-06-27",
+        "vcs_tag": "0.1.0",
         "gpgSign": false
     },
 
