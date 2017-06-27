@@ -27,7 +27,7 @@
         [
             {"includePattern": "target/(.*).jar","uploadPattern": "$1.jar"},
             {"includePattern": "target/(.*).jar.md5","uploadPattern": "$1.jar.md5"},
-            {"includePattern": "pom.xml","uploadPattern": "$1.pom"}
+            {"includePattern": "pom.xml","uploadPattern": "sf-java-ui-0.1.0.pom"}
         ],
     "publish": true
 }
