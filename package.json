@@ -25,8 +25,7 @@
 
     "files":
         [
-        {"includePattern": "/home/travis/build/JsonSchema-JavaUI/sf-java-ui/target/(.*).jar"},
-        {"includePattern": "build/docs/(.*)", "uploadPattern": "docs/$1"}
+        {"includePattern": "/home/travis/build/JsonSchema-JavaUI/sf-java-ui/target/(.*).jar","uploadPattern": "$2"}
         ],
     "publish": true
 }
