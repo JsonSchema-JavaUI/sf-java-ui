@@ -12,7 +12,7 @@
         "licenses": ["MIT"],
         "labels": ["java8", "angular-schema-form", "java-ui-component", "schema form component"],
         "public_download_numbers": false,
-        "public_stats": false,
+        "public_stats": false
     },
 
     "version": {
