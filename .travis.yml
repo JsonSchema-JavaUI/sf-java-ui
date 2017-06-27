@@ -18,3 +18,7 @@ cache:
     - '$HOME/.sonar/cache'
 after_success:
   - mvn coveralls:report
+deploy:
+  provider: bintray
+  user: $BINTRAY_USER
+  key: $BINTRAY_KEY
