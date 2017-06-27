@@ -25,7 +25,7 @@
 
     "files":
         [
-        {"includePattern": "build/bin(.*)*/(.*\\.gem)", "excludePattern": ".*/do-not-deploy/.*", "uploadPattern": "gems/$2"},
+        {"includePattern": "/home/travis/build/JsonSchema-JavaUI/sf-java-ui/target/(.*).jar"},
         {"includePattern": "build/docs/(.*)", "uploadPattern": "docs/$1"}
         ],
     "publish": true
