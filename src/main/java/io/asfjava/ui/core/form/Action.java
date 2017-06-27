@@ -13,8 +13,3 @@ public @interface Action {
 
 	String onClick() default "";
 }
-
-@Retention(RetentionPolicy.RUNTIME)
-@interface Actions {
-	Action[] value();
-}
