@@ -22,3 +22,4 @@ deploy:
   provider: bintray
   user: $BINTRAY_USER
   key: $BINTRAY_KEY
+  file: ./package.json
