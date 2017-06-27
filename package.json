@@ -27,7 +27,7 @@
         [
             {"includePattern": "target/(.*).jar","uploadPattern": "$1.jar"},
             {"includePattern": "target/(.*).jar.md5","uploadPattern": "$1.jar.md5"},
-            {"includePattern": "target/(.*).pom","uploadPattern": "$1.pom"}
+            {"includePattern": "pom.xml","uploadPattern": "$1.pom"}
         ],
     "publish": true
 }
