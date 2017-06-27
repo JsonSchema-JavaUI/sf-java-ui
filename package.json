@@ -25,7 +25,8 @@
 
     "files":
         [
-        {"includePattern": "target/(.*).jar","uploadPattern": "$1.jar"}
+            {"includePattern": "target/(.*).jar","uploadPattern": "$1.jar"},
+            {"includePattern": "target/(.*).jar.md5","uploadPattern": "$1.jar.md5"}
         ],
     "publish": true
 }
