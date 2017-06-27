@@ -2,7 +2,7 @@
     "package": {
         "name": "sf-java-ui",
         "repo": "https://github.com/JsonSchema-JavaUI/sf-java-ui",
-        "subject": "saifjerbi",
+        "subject": "jsonschema-javaui",
         "desc": "The angular schema form java ui library",
         "website_url": "jsonschema-javaui.github.io/sf-java-ui",
         "issue_tracker_url": "https://github.com/JsonSchema-JavaUI/sf-java-ui/issues",
