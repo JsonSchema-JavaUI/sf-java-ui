@@ -13,6 +13,10 @@ The SF Java UI library is a server side extension for the [Json Schema Form](htt
 
 If you use SF Java UI in your project/company please let us know.
 
+## Documentation
+
+You can find all documentation [here](../../wiki), it covers all the different field types and their options.
+
 ## Run the Demo
 The attached demo application is a Spring Boot + Angular web application. 
 To run the app please go to the demo directory and run the commands below:
