@@ -15,7 +15,7 @@ If you use SF Java UI in your project/company please let us know.
 
 ## Documentation
 
-You can find all documentation [here](../../wiki), it covers all the different field types and their options.
+You can find all documentation [here](docs/index.md), it covers all the different field types and their options.
 
 ## Run the Demo
 The attached demo application is a Spring Boot + Angular web application. 
