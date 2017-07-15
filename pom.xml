@@ -1,9 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>io.sfjava.ui</groupId>
 	<artifactId>sf-java-ui</artifactId>
-	<version>0.1.2</version>
+	<version>0.1.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>sf-java-ui</name>
@@ -30,8 +31,8 @@
 		<url>https://github.com/JsonSchema-JavaUI/sf-java-ui</url>
 		<connection>scm:git:git://github.com/JsonSchema-JavaUI/sf-java-ui.git</connection>
 		<developerConnection>scm:git:git@github.com:JsonSchema-JavaUI/sf-java-ui.git</developerConnection>
-	  <tag>sf-java-ui-0.1.2</tag>
-  </scm>
+		<tag>sf-java-ui-0.1.1</tag>
+	</scm>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -169,6 +170,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.5.1</version>
+				<configuration>
+					<localCheckout>true</localCheckout>
+					<pushChanges>false</pushChanges>
+				</configuration>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.shared</groupId>
