@@ -1,21 +1,18 @@
 package io.asfjava.ui.demo.screen;
 
 import java.io.Serializable;
+import io.asfjava.ui.core.form.Number;
 
-import io.asfjava.ui.core.form.TextField;
+public class NumberDemoForm  implements Serializable {
 
-public class DemoForm implements Serializable {
 
-	@TextField(title = "Full Name", minLenght = 3)
+	@Number(title = "Full Name")
 	private String fullName;
 
-	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
 	private String mail;
 
-	@TextField(title = "Repository", fieldAddonLeft = "https://github.com/")
 	private String githubRepository;
 
-	@TextField(title = "Github user name", fieldAddonRight = "@Github.com")
 	private String githubUserName;
 
 	public String getMail() {
@@ -34,5 +31,5 @@ public class DemoForm implements Serializable {
 		return githubUserName;
 	}
 
-	private static final long serialVersionUID = -5073515619469444978L;
+	private static final long serialVersionUID = 8246871107045000185L;
 }

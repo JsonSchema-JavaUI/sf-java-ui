@@ -4,7 +4,7 @@
 
 	<groupId>io.sfjava.ui</groupId>
 	<artifactId>sf-java-ui</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>sf-java-ui</name>
@@ -170,9 +170,9 @@
 	</build>
 	<distributionManagement>
 		<repository>
-			<id>bintray-jsonschema-javaui-SF-Java-UI</id>
-			<name>jsonschema-javaui-SF-Java-UI</name>
-			<url>https://api.bintray.com/maven/jsonschema-javaui/SF-Java-UI/sf-java-ui/;publish=1</url>
+			<id>bintray-jsonschema-javaui-sf-java-ui</id>
+			<name>jsonschema-javaui-sf-java-ui</name>
+			<url>https://api.bintray.com/maven/jsonschema-javaui/sf-java-ui/sf-java-ui/;publish=1</url>
 		</repository>
 	</distributionManagement>
 
