@@ -19,7 +19,7 @@
         "name": "0.1.0",
         "desc": "This is the first alpha release",
         "released": "2017-06-27",
-        "vcs_tag": "0.1.0",
+        "vcs_tag": "0.1.1",
         "gpgSign": true
     },
 
@@ -27,7 +27,7 @@
         [
             {"includePattern": "target/(.*).jar","uploadPattern": "$1.jar"},
             {"includePattern": "target/(.*).jar.md5","uploadPattern": "$1.jar.md5"},
-            {"includePattern": "pom.xml","uploadPattern": "sf-java-ui-0.1.0.pom"}
+            {"includePattern": "pom.xml","uploadPattern": "sf-java-ui-0.1.1.pom"}
         ],
     "publish": true
 }
