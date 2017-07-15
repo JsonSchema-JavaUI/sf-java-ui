@@ -24,6 +24,46 @@ To render a field as a TextField the developer must add the [@TextField](../src/
 | fieldAddonLeft    | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the left side of the Text Field |
 | fieldAddonRight   | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the right side of the Text Field |
 
+The code below is an example using the TextField annotation. Feel free to try this code snipet:
+
+```Java
+import java.io.Serializable;
+
+import io.asfjava.ui.core.form.TextField;
+
+public class DemoForm implements Serializable {
+
+	@TextField(title = "Full Name", minLenght = 3)
+	private String fullName;
+
+	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
+	private String mail;
+
+	@TextField(title = "Repository", fieldAddonLeft = "https://github.com/")
+	private String githubRepository;
+
+	@TextField(title = "Github user name", fieldAddonRight = "@Github.com")
+	private String githubUserName;
+
+	public String getMail() {
+		return mail;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public String getGithubRepository() {
+		return githubRepository;
+	}
+
+	public String getGithubUserName() {
+		return githubUserName;
+	}
+}
+
+```
+
 ### NumberField:
 
 The given component can be used to fill numeric values, it can be applied to fields of type [java.lang.Number](https://docs.oracle.com/javase/7/docs/api/java/lang/Number.html) (Integer, Long, Double, Float, etc ...). The developer must use the [@Number](../src/main/java/io/asfjava/ui/core/form/Number.java) in this case.
