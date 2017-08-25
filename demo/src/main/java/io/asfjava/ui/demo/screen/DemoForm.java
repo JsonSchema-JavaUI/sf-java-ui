@@ -2,36 +2,29 @@ package io.asfjava.ui.demo.screen;
 
 import java.io.Serializable;
 
-import io.asfjava.ui.core.form.TextField;
+import io.asfjava.ui.core.form.TextArea;
 
 public class DemoForm implements Serializable {
 
-	@TextField(title = "Full Name", minLenght = 3)
-	private String fullName;
+	@TextArea(title = "Comment", description = "Add your Comment here", placeHolder = "fill your comment please")
+	private String comment;
 
-	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
-	private String mail;
+	@TextArea(title = "Tweet", placeHolder = "This message will be tweeted", maxLenght = 140, validationMessage = Messages.TWEET_VALIDATION)
+	private String tweet;
 
-	@TextField(title = "Repository", fieldAddonLeft = "https://github.com/")
-	private String githubRepository;
+	@TextArea(title = "Fill a message", minLenght = 50)
+	private String message;
 
-	@TextField(title = "Github user name", fieldAddonRight = "@Github.com")
-	private String githubUserName;
-
-	public String getMail() {
-		return mail;
+	public String getComment() {
+		return comment;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getTweet() {
+		return tweet;
 	}
 
-	public String getGithubRepository() {
-		return githubRepository;
-	}
-
-	public String getGithubUserName() {
-		return githubUserName;
+	public String getMessage() {
+		return message;
 	}
 
 	private static final long serialVersionUID = -5073515619469444978L;
