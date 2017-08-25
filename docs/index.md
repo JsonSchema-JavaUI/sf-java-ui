@@ -64,6 +64,11 @@ public class DemoForm implements Serializable {
 
 ```
 
+![Demo TextField](images/textField.png)
+<center>*1- Demo TextField*</center>
+
+
+
 ### NumberField:
 
 The given component can be used to fill numeric values, it can be applied to fields of type [java.lang.Number](https://docs.oracle.com/javase/7/docs/api/java/lang/Number.html) (Integer, Long, Double, Float, etc ...). The developer must use the [@Number](../src/main/java/io/asfjava/ui/core/form/Number.java) in this case.
