@@ -47,8 +47,11 @@ First, add the SF Java UI library to your java web project:
 ```
 Add the oss repository:
 ```xml
-The official version Not yet deployed
+The official version Not yet deployed to sonatype.
 ```
+
+Please find the required instruction to configure [bintray.com](https://bintray.com/jsonschema-javaui/sf-java-ui/sf-java-ui) repository to your setting.xml
+
 #### Using spring boot
 
 If you a are using spring boot to develop your project, you can add the annotation below to your main spring boot class in order to run the servlet context loader to inialize the library
@@ -83,7 +86,7 @@ public class DemoApplication {
 
 #### Using other java web project
 
-You can add this line of code on your custom startup listener. 
+You may add this line of code on your custom server startup listener. 
 
 ```Java
 
