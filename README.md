@@ -49,6 +49,47 @@ Add the oss repository:
 ```xml
 The official version Not yet deployed
 ```
+#### Using spring boot
+
+If you a are using spring boot to develop your project, you can add the annotation below to your main spring boot class in order to run the servlet context loader to inialize the library
+
+```Java
+
+@ServletComponentScan(basePackages = { "io.asfjava.ui.core" })
+
+```
+You can follow the example below used in the demo application
+
+```Java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+
+@SpringBootApplication
+/*
+ * The annotation below used to scan the servlet context loader added to the sf-java-ui library
+ * in order to initialize the library @ server startup
+ * 
+ * */
+@ServletComponentScan(basePackages = { "io.asfjava.ui.core" })
+public class DemoApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+}
+
+
+```
+
+#### Using other java web project
+
+You can add this line of code on your custom startup listener. 
+
+```Java
+
+SFJavaUi.initialize();
+
+```
 
 Create a new Rest Web Service. (example using spring)
 
