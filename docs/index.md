@@ -285,3 +285,56 @@ public class DemoForm implements Serializable {
 5- Demo Tab
 
 ![Demo Tab](images/tab.png)
+
+### Index
+
+Having the ability to handle the fields order in the screen is very important for developers, this is why we added an [@Index](../src/main/java/io/asfjava/ui/core/form/Index.java) annotation that allow you to mark the index of your field in the rendered screen.
+
+N.B: The [@Index](../src/main/java/io/asfjava/ui/core/form/Index.java) annotation also used with [@Tab](../src/main/java/io/asfjava/ui/core/form/Tab.java) annotation. It handle the order of components into the tab rendered
+
+| Properties        | Type           | Usage |
+| -------------     |:-------------: | :-----|
+| value             | Integer        | The value of the index |
+
+The example below demonstrate how to use Index annotation.
+
+```Java
+
+import java.io.Serializable;
+
+import io.asfjava.ui.core.form.Index;
+import io.asfjava.ui.core.form.TextField;
+
+public class DemoForm implements Serializable {
+
+	@Index(3)
+	@TextField(title = "Full Name")
+	private String fullName;
+
+	@Index(1)
+	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
+	private String mail;
+
+	@Index(2)
+	@TextField(title = "Repository", fieldAddonLeft = "https://github.com/")
+	private String githubRepository;
+
+	public String getMail() {
+		return mail;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public String getGithubRepository() {
+		return githubRepository;
+	}
+
+}
+
+```
+
+6- Demo Index
+
+![Demo Index](images/index.png)
