@@ -234,3 +234,54 @@ public class DemoForm implements Serializable {
 
 ![Demo TextArea](images/textArea.png)
 
+### Tabs
+
+Tabs organize content into separate views where only one view can be visible at a time. To use a this component the developer must use [@Tab](../src/main/java/io/asfjava/ui/core/form/Tab.java). The idea is to allow the developer mark which component will be in a specific tab. The properties below must be filled by the developer to render the Tab.
+
+| Properties        | Type           | Usage |
+| -------------     |:-------------: | :-----|
+| title             | String         | The title of the Tab |
+| index             | Integer        | The tab index. In most case, there more than one tab in the screen |
+
+The example below demonstrate how to use Tab annotation.
+
+```Java
+
+import java.io.Serializable;
+
+import io.asfjava.ui.core.form.Tab;
+import io.asfjava.ui.core.form.TextField;
+
+public class DemoForm implements Serializable {
+
+	@Tab(title = "First tab", index = 0)
+	@TextField(title = "Full Name", minLenght = 3)
+	private String fullName;
+
+	@Tab(title = "Second tab", index = 1)
+	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
+	private String mail;
+
+	@Tab(title = "First tab", index = 0)
+	@TextField(title = "Repository", fieldAddonLeft = "https://github.com/")
+	private String githubRepository;
+
+	public String getMail() {
+		return mail;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public String getGithubRepository() {
+		return githubRepository;
+	}
+
+}
+
+```
+
+5- Demo Tab
+
+![Demo Tab](images/tab.png)
