@@ -338,3 +338,96 @@ public class DemoForm implements Serializable {
 6- Demo Index
 
 ![Demo Index](images/index.png)
+
+### Action
+
+Actions are crucial in form screens. To add an action to your form, you have to use the [@Action](../src/main/java/io/asfjava/ui/core/form/Action.java) annotation.
+
+| Properties        | Type           | Usage |
+| -------------     |:-------------: | :-----|
+| type              | String         | The action type |
+| title             | String         | The action title |
+| onClick           | String         | The client side function to fire when clicking on the tab |
+
+The example below demonstrate how to use Action annotation.
+
+```Java
+
+import java.io.Serializable;
+
+import io.asfjava.ui.core.form.Action;
+import io.asfjava.ui.core.form.TextField;
+
+@Action(title = "Previous", type = "button", onClick = "goToPrevious()")
+@Action(title = "Next", type = "button", onClick = "goToNext()")
+public class DemoForm implements Serializable {
+
+	@TextField(title = "Full Name")
+	private String fullName;
+
+	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
+	private String mail;
+
+	public String getMail() {
+		return mail;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+}
+
+
+```
+
+6- Demo Action
+
+![Demo Action](images/action.png)
+
+### ActionGroup
+
+Developer have the ability to group Actions. To add a group of actions to your form, you have to use the [@ActionsGroup](../src/main/java/io/asfjava/ui/core/form/ActionsGroup.java) annotation.
+
+| Properties        | Type           | Usage |
+| -------------     |:-------------: | :-----|
+| value             | Array of [@Action](../src/main/java/io/asfjava/ui/core/form/Action.java)| Array of actions |
+
+The example below demonstrate how to use ActionsGroup annotation.
+
+```Java
+
+import java.io.Serializable;
+
+import io.asfjava.ui.core.form.Action;
+import io.asfjava.ui.core.form.ActionsGroup;
+import io.asfjava.ui.core.form.TextField;
+
+@ActionsGroup({ 
+		@Action(title = "Previous", type = "button", onClick = "goToPrevious()"),
+		@Action(title = "Next", type = "button", onClick = "goToNext()") 
+})
+public class DemoForm implements Serializable {
+
+	@TextField(title = "Full Name")
+	private String fullName;
+
+	@TextField(title = "Email", pattern = "^\\S+@\\S+$")
+	private String mail;
+
+	public String getMail() {
+		return mail;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+}
+
+
+```
+
+6- Demo ActionGroup
+
+![Demo ActionGroup](images/actionsGroup.png)
