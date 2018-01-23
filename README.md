@@ -52,6 +52,25 @@ The official version Not yet deployed to sonatype.
 
 Please find the required instruction to configure [bintray.com](https://bintray.com/jsonschema-javaui/sf-java-ui/sf-java-ui) repository to your setting.xml
 
+Or you can configure the repository directly in your pom.xml file:
+```xml
+// Your pom file
+<dependencies>...</dependencies>
+
+// To be added in the pom file in order to specify the remote repo to download the library 
+<repositories>
+   <repository>
+        <snapshots>
+           <enabled>false</enabled>
+        </snapshots>
+	<id>bintray-jsonschema-javaui-sf-java-ui</id>
+	<name>bintray-plugins</name>
+	<url>https://dl.bintray.com/jsonschema-javaui/sf-java-ui</url>
+    </repository>
+</repositories>
+
+```
+
 #### Using spring boot
 
 If you a are using spring boot to develop your project, you can add the annotation below to your main spring boot class in order to run the servlet context loader to inialize the library
