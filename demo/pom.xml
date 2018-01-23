@@ -15,7 +15,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.5.3.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -41,6 +41,17 @@
 			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-jsonschema-javaui-sf-java-ui</id>
+			<name>bintray-plugins</name>
+			<url>https://dl.bintray.com/jsonschema-javaui/sf-java-ui</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
