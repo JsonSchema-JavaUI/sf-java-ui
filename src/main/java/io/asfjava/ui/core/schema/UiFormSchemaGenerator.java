@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -62,23 +61,19 @@ public final class UiFormSchemaGenerator {
 
 		ArrayNode formDefinition = mapper.createArrayNode();
 		tabbedFields.ifPresent(formDefinition::add);
-		sortedNodes.entrySet().stream().forEach(nodesElement -> formDefinition.add(nodesElement.getValue()));
 
-		if (formDto.getDeclaredAnnotation(DisplayAllFields.class) != null) {
-			// check if fields is not handled and haven't jackson json ignore annotation
-			List<Field> unannotatedFiedls = Arrays.stream(declaredFields)
-					.filter(field -> !nodes.containsKey(field) && !field.isAnnotationPresent(JsonIgnore.class))
-					.collect(Collectors.toList());
-			handleUnAnnotatedFields(formDefinition, unannotatedFiedls);
-		}
+		sortedNodes.entrySet().stream().forEach(nodesElement -> {
+			if (nodesElement.getValue() != null) {
+				formDefinition.add(nodesElement.getValue());
+			} else if (formDto.getDeclaredAnnotation(DisplayAllFields.class) != null) {
+				// if no definition it must be added as key to the form definition
+				formDefinition.add(nodesElement.getKey().getName());
+			}
+		});
 
 		handleActionsAnnotation(mapper, formDto, formDefinition);
 
 		return new UiForm(schema, formDefinition);
-	}
-
-	private void handleUnAnnotatedFields(ArrayNode formDefinition, List<Field> unannotatedFiedls) {
-		unannotatedFiedls.stream().forEach(field -> formDefinition.add(field.getName()));
 	}
 
 	private void handleActionsAnnotation(ObjectMapper mapper, Class<? extends Serializable> formDto,
@@ -180,6 +175,12 @@ public final class UiFormSchemaGenerator {
 
 		Arrays.stream(declaredFields).forEach(field -> buildFormDefinition(nodes, mapper, field));
 
+		// check if fields is not handled and haven't jackson json ignore annotation it
+		// must be added
+		Arrays.stream(declaredFields)
+				.filter(field -> !nodes.containsKey(field) && !field.isAnnotationPresent(JsonIgnore.class))
+				.forEach(field -> nodes.put(field, null));
+
 		return nodes;
 	}
 
@@ -229,9 +230,9 @@ public final class UiFormSchemaGenerator {
 					field2Index != null ? field2Index.value() : Integer.MAX_VALUE);
 		};
 
-		return nodes.entrySet().stream().sorted(tabIndexComparator).collect(Collectors.toMap(Map.Entry::getKey,
-				Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-
+		return nodes.entrySet().stream().sorted(tabIndexComparator).collect(LinkedHashMap::new,
+				(result, currentElement) -> result.put(currentElement.getKey(), currentElement.getValue()),
+				Map::putAll);
 	}
 
 	public static UiFormSchemaGenerator get() {
