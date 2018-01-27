@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.module.jsonSchema.JsonSchemaGenerator;
 import io.asfjava.ui.core.FormDefinitionGeneratorFactory;
 import io.asfjava.ui.core.form.Action;
 import io.asfjava.ui.core.form.ActionsGroup;
+import io.asfjava.ui.core.form.DisplayAllFields;
 import io.asfjava.ui.core.form.FieldSet;
 import io.asfjava.ui.core.form.Index;
 import io.asfjava.ui.core.form.Tab;
@@ -62,9 +64,21 @@ public final class UiFormSchemaGenerator {
 		tabbedFields.ifPresent(formDefinition::add);
 		sortedNodes.entrySet().stream().forEach(nodesElement -> formDefinition.add(nodesElement.getValue()));
 
+		if (formDto.getDeclaredAnnotation(DisplayAllFields.class) != null) {
+			// check if fields is not handled and haven't jackson json ignore annotation
+			List<Field> unannotatedFiedls = Arrays.stream(declaredFields)
+					.filter(field -> !nodes.containsKey(field) && !field.isAnnotationPresent(JsonIgnore.class))
+					.collect(Collectors.toList());
+			handleUnAnnotatedFields(formDefinition, unannotatedFiedls);
+		}
+
 		handleActionsAnnotation(mapper, formDto, formDefinition);
 
 		return new UiForm(schema, formDefinition);
+	}
+
+	private void handleUnAnnotatedFields(ArrayNode formDefinition, List<Field> unannotatedFiedls) {
+		unannotatedFiedls.stream().forEach(field -> formDefinition.add(field.getName()));
 	}
 
 	private void handleActionsAnnotation(ObjectMapper mapper, Class<? extends Serializable> formDto,
