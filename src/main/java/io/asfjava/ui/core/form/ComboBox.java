@@ -1,10 +1,10 @@
 package io.asfjava.ui.core.form;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * {@link ComboBox}This interface represent the ComboBox HTML Tag Title:
@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
  * {@link #required()} by default false,specifies that the user is required to
  * select a value before submitting the form. {@link #size()} by default
  * 1,defines the number of visible options in a drop-down list.
- * 
+ * <p>
  * JsonSchema-JavaUI Team
  */
 
@@ -25,20 +25,22 @@ import java.lang.annotation.Target;
 @Target(FIELD)
 public @interface ComboBox {
 
-	String title();
+    String title();
 
-	String[] values() default {};
+    String[] values() default {};
 
-	boolean autofocus() default false;
+    boolean autofocus() default false;
 
-	boolean disabled() default false;
+    boolean disabled() default false;
 
-	boolean multiple() default false;
+    boolean multiple() default false;
 
-	boolean required() default false;
+    boolean required() default false;
 
-	int size() default 1;
-	
-	Class<? extends ValuesContainer> titleMap() default ValuesContainer.class;
+    int size() default 1;
+
+    Class<? extends ValuesContainer> titleMap() default ValuesContainer.class;
+
+    String refURL() default "";
 
 }
