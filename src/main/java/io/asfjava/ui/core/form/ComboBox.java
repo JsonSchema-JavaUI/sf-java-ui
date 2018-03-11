@@ -38,7 +38,9 @@ public @interface ComboBox {
 	boolean required() default false;
 
 	int size() default 1;
-	
+
+	String refURL() default "";
+
 	Class<? extends ValuesContainer> titleMap() default ValuesContainer.class;
 
 }
