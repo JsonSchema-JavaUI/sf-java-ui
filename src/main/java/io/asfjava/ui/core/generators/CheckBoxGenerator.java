@@ -12,7 +12,7 @@ import io.asfjava.ui.core.form.CheckBox;
 import io.asfjava.ui.core.form.ValuesContainer;
 import io.asfjava.ui.core.logging.ASFUILogger;
 
-public class CheckBoxGenerator implements FormDefinitionGenerator{
+public class CheckBoxGenerator extends ListGenerator implements FormDefinitionGenerator{
 
 	@Override
 	public void generate(ObjectNode fieldFormDefinition, Field field) {
@@ -25,39 +25,11 @@ public class CheckBoxGenerator implements FormDefinitionGenerator{
 		ArrayNode titlesMap = checkBoxMapper.createArrayNode();
 		if (annotation.values().length > 0) {
 			Arrays.stream(annotation.values()).forEach(value -> buildValueDefinition(checkBoxMapper, titlesMap, value));
-
 			fieldFormDefinition.set("titleMap", titlesMap);
 		} else if (!annotation.titleMap().equals(ValuesContainer.class)) {
-
-			try {
-				Map<String, String> map = (annotation.titleMap()).newInstance().getValues();
-				map.entrySet().stream().forEach(mapEntry -> {
-					ObjectNode entryNode = checkBoxMapper.createObjectNode();
-					entryNode.put("name", mapEntry.getKey());
-					entryNode.putPOJO("value", mapEntry.getValue());
-					titlesMap.add(entryNode);
-				});
-				fieldFormDefinition.set("titleMap", titlesMap);
-			} catch (InstantiationException | IllegalAccessException e) {
-				ASFUILogger.getLogger().error(e.getMessage());
-				throw new RuntimeException(e);
-			}
+			buildValues(checkBoxMapper, titlesMap, annotation.titleMap());
+			fieldFormDefinition.set("titleMap", titlesMap);
 		}
-	}
-
-	private void buildValueDefinition(ObjectMapper checkBoxMapper, ArrayNode titlesMap, String value) {
-		ObjectNode entry = checkBoxMapper.createObjectNode();
-		String upperCasedValue = value.toUpperCase();
-		String lowerCasedValue = value.toLowerCase();
-		if (value.equals(upperCasedValue)) {
-			entry.put("name", value.toLowerCase());
-		} else if (value.equals(lowerCasedValue)) {
-			entry.put("name", value.replace(value.substring(0, 1), value.substring(0, 1).toUpperCase()));
-		} else {
-			entry.put("name", value);
-		}
-		entry.put("value", value);
-		titlesMap.add(entry);
 	}
 
 	@Override
