@@ -3,7 +3,7 @@
 
 	<groupId>io.sfjava.ui</groupId>
 	<artifactId>sf-java-ui</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>sf-java-ui</name>
@@ -30,7 +30,7 @@
 		<url>https://github.com/JsonSchema-JavaUI/sf-java-ui</url>
 		<connection>scm:git:git://github.com/JsonSchema-JavaUI/sf-java-ui.git</connection>
 		<developerConnection>scm:git:git@github.com:JsonSchema-JavaUI/sf-java-ui.git</developerConnection>
-		<tag>sf-java-ui-1.0.1</tag>
+		<tag>sf-java-ui-1.0.0</tag>
 	</scm>
 
 	<properties>
