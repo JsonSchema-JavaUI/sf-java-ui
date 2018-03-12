@@ -3,6 +3,7 @@ package io.asfjava.ui.core.schema;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,8 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import org.reflections.ReflectionUtils;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -43,7 +47,8 @@ public final class UiFormSchemaGenerator {
 	private static UiFormSchemaGenerator instance;
 
 	public UiForm generate(Class<? extends Serializable> formDto) throws JsonMappingException {
-		Field[] declaredFields = formDto.getDeclaredFields();
+		Set<Field> declaredFields = ReflectionUtils.getAllFields(formDto,
+				field -> !Modifier.isStatic(field.getModifiers()));
 		ObjectMapper mapper = new ObjectMapper();
 
 		JsonSchemaGenerator schemaGen = initSchemaGen(mapper);
@@ -105,13 +110,13 @@ public final class UiFormSchemaGenerator {
 		return node;
 	}
 
-	private ObjectNode handlerGroupedFields(ObjectMapper mapper, Field[] declaredFields,
+	private ObjectNode handlerGroupedFields(ObjectMapper mapper, Set<Field> declaredFields,
 			Map<Field, JsonNode> sortedNodes) {
 		Predicate<? super Field> checkFieldSetAnnotation = field -> field.isAnnotationPresent(FieldSet.class);
 
 		Map<String, List<JsonNode>> groupedFields = new LinkedHashMap<>();
 
-		Arrays.stream(declaredFields).filter(checkFieldSetAnnotation)
+		declaredFields.stream().filter(checkFieldSetAnnotation)
 				.forEach(field -> groupFieldsByTab(sortedNodes, field, groupedFields));
 
 		ArrayNode groups = mapper.createArrayNode();
@@ -123,7 +128,7 @@ public final class UiFormSchemaGenerator {
 
 	}
 
-	private ObjectNode handleTabbedFields(ObjectMapper mapper, Field[] declaredFields, Map<Field, JsonNode> nodes) {
+	private ObjectNode handleTabbedFields(ObjectMapper mapper, Set<Field> declaredFields, Map<Field, JsonNode> nodes) {
 		Predicate<? super Field> checkTabAnnotation = field -> field.isAnnotationPresent(Tab.class);
 
 		Comparator<? super Field> tabIndexComparator = (field1, field2) -> Integer
@@ -138,7 +143,7 @@ public final class UiFormSchemaGenerator {
 
 		Map<String, List<JsonNode>> groupedFieldsByTab = new LinkedHashMap<>();
 
-		Arrays.stream(declaredFields).filter(checkTabAnnotation).sorted(fieldIndexComparator).sorted(tabIndexComparator)
+		declaredFields.stream().filter(checkTabAnnotation).sorted(fieldIndexComparator).sorted(tabIndexComparator)
 				.forEach(field -> groupFieldsByTab(nodes, field, groupedFieldsByTab));
 
 		ArrayNode tabs = mapper.createArrayNode();
@@ -161,10 +166,10 @@ public final class UiFormSchemaGenerator {
 
 	}
 
-	private Map<Field, JsonNode> initFieldsFormDefinition(ObjectMapper mapper, Field[] declaredFields) {
+	private Map<Field, JsonNode> initFieldsFormDefinition(ObjectMapper mapper, Set<Field> declaredFields) {
 		Map<Field, JsonNode> nodes = new HashMap<>();
 
-		Arrays.stream(declaredFields).forEach(field -> buildFormDefinition(nodes, mapper, field));
+		declaredFields.forEach(field -> buildFormDefinition(nodes, mapper, field));
 
 		return nodes;
 	}
