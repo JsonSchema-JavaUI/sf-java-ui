@@ -3,7 +3,7 @@
 
 	<groupId>io.sfjava.ui</groupId>
 	<artifactId>sf-java-ui</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>sf-java-ui</name>
