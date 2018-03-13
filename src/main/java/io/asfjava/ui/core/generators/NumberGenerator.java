@@ -13,6 +13,7 @@ public class NumberGenerator implements FormDefinitionGenerator {
 		Number annotation = field.getAnnotation(Number.class);
 		fieldFormDefinition.put("key", field.getName());
 		fieldFormDefinition.put("type", "number");
+		fieldFormDefinition.put("required", annotation.required());
 
 		String title = annotation.title();
 		if (!title.isEmpty()) {

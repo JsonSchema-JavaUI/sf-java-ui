@@ -20,6 +20,7 @@ To render a field as a TextField the developer must add the [@TextField](../src/
 | pattern           | String (regEx) | Reg Ex used to validate the input |
 | validationMessage | String         | A custom validation error message |
 | readOnly          | Boolean        | Make the field readOnly |
+| required          | Boolean        | Make the field required |
 | noTitle           | Boolean        | Set to true to hide title |
 | fieldAddonLeft    | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the left side of the Text Field |
 | fieldAddonRight   | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the right side of the Text Field |
@@ -81,6 +82,7 @@ The given component can be used to fill numeric values, it can be applied to fie
 | description       | String         | A description, can be HTML |
 | validationMessage | String         | A custom validation error message |
 | readOnly          | Boolean        | Make the field readOnly |
+| required          | Boolean        | Make the field required |
 | noTitle           | Boolean        | Set to true to hide title |
 | fieldAddonLeft    | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the left side of the Number Field |
 | fieldAddonRight   | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the right side of the Number Field |
@@ -147,6 +149,7 @@ For some use cases, the developer need to use a encrypted UI input field to fill
 | pattern           | String (regEx) | Reg Ex used to validate the input |
 | validationMessage | String         | A custom validation error message |
 | readOnly          | Boolean        | Make the field readOnly |
+| required          | Boolean        | Make the field required |
 | noTitle           | Boolean        | Set to true to hide title |
 | fieldAddonLeft    | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the left side of the Password Field |
 | fieldAddonRight   | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the right side of the Password Field |
@@ -190,6 +193,7 @@ The TextArea component is a multiline text field with a border and optional scro
 | maxLength         | Integer        | Max text length |
 | validationMessage | String         | A custom validation error message |
 | readOnly          | Boolean        | Make the field readOnly |
+| required          | Boolean        | Make the field required |
 | noTitle           | Boolean        | Set to true to hide title |
 | fieldAddonLeft    | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the left side of the Text Area |
 | fieldAddonRight   | String         | [Extend form controls](http://getbootstrap.com/components/#input-groups) by adding text on the right side of the Text Area |

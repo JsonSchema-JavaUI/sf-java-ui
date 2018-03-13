@@ -13,6 +13,7 @@ public class TextAreaGenerator implements FormDefinitionGenerator {
 		TextArea annotation = field.getAnnotation(TextArea.class);
 		fieldFormDefinition.put("key", field.getName());
 		fieldFormDefinition.put("type", "textarea");
+		fieldFormDefinition.put("required", annotation.required());
 
 		String fieldAddonLeft = annotation.fieldAddonLeft();
 		if (!fieldAddonLeft.isEmpty()) {

@@ -13,6 +13,7 @@ public class PasswordGenerator implements FormDefinitionGenerator {
 		Password annotation = field.getAnnotation(Password.class);
 		fieldFormDefinition.put("key", field.getName());
 		fieldFormDefinition.put("type", "password");
+		fieldFormDefinition.put("required", annotation.required());
 
 		String description = annotation.description();
 		if (!description.isEmpty()) {
