@@ -13,6 +13,8 @@ public class TextFieldGenerator implements FormDefinitionGenerator {
 		TextField annotation = field.getAnnotation(TextField.class);
 
 		fieldFormDefinition.put("key", field.getName());
+		fieldFormDefinition.put("required", annotation.required());
+
 		String description = annotation.description();
 		if (!description.isEmpty()) {
 			fieldFormDefinition.put("description", description);

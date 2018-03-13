@@ -30,4 +30,7 @@ public @interface TextField {
 	String validationMessage() default "";
 
 	boolean readOnly() default false;
+	
+	boolean required() default false;
+
 }
