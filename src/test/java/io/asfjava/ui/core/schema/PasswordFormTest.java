@@ -67,7 +67,6 @@ public class PasswordFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].fieldAddonLeft",hasItem("@")));
-
 	}
 	
 	@Test
@@ -85,37 +84,36 @@ public class PasswordFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].notitle",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].readonly",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='password')].fieldAddonRight",hasItem("@")));
-
 	}
 
-}
+	private class PasswordForm implements Serializable {
 
-class PasswordForm implements Serializable {
+		@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private String password;
 
-	@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private String password;
+		public String getPassword() {
+			return password;
+		}
+	}
 
-	public String getPassword() {
-		return password;
+	private class PasswordForm2 implements Serializable {
+
+		@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]",minLenght=6,maxLenght=10, fieldAddonRight = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private String password;
+
+		public String getPassword() {
+			return password;
+		}
+	}
+
+	private class PasswordForm3 implements Serializable {
+
+		@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]",minLenght=6,maxLenght=10, fieldAddonLeft = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private String password;
+
+		public String getPassword() {
+			return password;
+		}
 	}
 }
 
-class PasswordForm2 implements Serializable {
-
-	@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]",minLenght=6,maxLenght=10, fieldAddonRight = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private String password;
-
-	public String getPassword() {
-		return password;
-	}
-}
-
-class PasswordForm3 implements Serializable {
-
-	@Password(title = "Password", placeHolder = "Please set you password", pattern = "[a-z]",minLenght=6,maxLenght=10, fieldAddonLeft = "@", description = "This is password", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private String password;
-
-	public String getPassword() {
-		return password;
-	}
-}

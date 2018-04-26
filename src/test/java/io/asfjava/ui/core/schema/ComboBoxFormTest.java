@@ -49,7 +49,6 @@ public class ComboBoxFormTest {
 				hasJsonPath("$.form[?(@.key=='currency')].titleMap[?(@.name=='Euro')].value", hasItem("euro")));
 		Assert.assertThat(json,
 				hasJsonPath("$.form[?(@.key=='currency')].titleMap[?(@.name=='Dollar')].value", hasItem("dollar")));
-
 	}
 
 	@Test
@@ -67,28 +66,28 @@ public class ComboBoxFormTest {
 				hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Male')].value", hasItem("male")));
 		Assert.assertThat(json,
 				hasJsonPath("$.form[?(@.key=='gender')].titleMap[?(@.name=='Female')].value", hasItem("female")));
-
 	}
 
-}
+	private class ComboBoxForm implements Serializable {
 
-class ComboBoxForm implements Serializable {
+		@ComboBox(title = "Currency", values = { "euro", "dollar" }, required = true)
+		private String currency;
 
-	@ComboBox(title = "Currency", values = { "euro", "dollar" }, required = true)
-	private String currency;
+		public String getCurrency() {
+			return currency;
+		}
+	}
 
-	public String getCurrency() {
-		return currency;
+	private class ComboBoxForm2 implements Serializable {
+
+		@ComboBox(title = "Gender", titleMap = GenderTitleMap.class)
+		private String gender;
+
+		public String getGender() {
+			return gender;
+		}
 	}
 }
 
-class ComboBoxForm2 implements Serializable {
 
-	@ComboBox(title = "Gender", titleMap = GenderTitleMap.class)
-	private String gender;
-
-	public String getGender() {
-		return gender;
-	}
-}
 
