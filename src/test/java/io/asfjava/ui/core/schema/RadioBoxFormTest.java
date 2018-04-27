@@ -47,17 +47,16 @@ public class RadioBoxFormTest {
 				hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Single')].value", hasItem("HAPPY")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='civilState')].titleMap[?(@.name=='Divorced')].value",
 				hasItem("RELEASED")));
-
 	}
 
-}
+	private class RadioBoxForm implements Serializable {
 
-class RadioBoxForm implements Serializable {
+		@RadioBox(title = "Civil State", titleMap = CivilStateValues.class)
+		private String civilState;
 
-	@RadioBox(title = "Civil State", titleMap = CivilStateValues.class)
-	private String civilState;
-
-	public String getCivilState() {
-		return civilState;
+		public String getCivilState() {
+			return civilState;
+		}
 	}
 }
+

@@ -50,7 +50,6 @@ public class TextAreaFormTest {
 		// hasJsonPath("$.form[?(@.key=='password')].type",hasItem("textArea")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
-
 	}
 	
 	public void testGenerate_TextArea_WithFieldAddOnLeft() throws JsonProcessingException {
@@ -71,8 +70,6 @@ public class TextAreaFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].notitle", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].readonly", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].fieldAddonLeft", hasItem("@")));
-
-
 	}
 	
 	public void testGenerate_TextArea_WithFieldAddOnRight() throws JsonProcessingException {
@@ -93,34 +90,34 @@ public class TextAreaFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='address')].fieldAddonRight", hasItem("@")));
 	}
 
-}
+	private class TextAreaForm2 implements Serializable {
 
-class TextAreaForm2 implements Serializable {
+		@TextArea(title = "Address", placeHolder = "Fill your address please", fieldAddonLeft = "@",minLenght=6,maxLenght=10, description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private String address;
 
-	@TextArea(title = "Address", placeHolder = "Fill your address please", fieldAddonLeft = "@",minLenght=6,maxLenght=10, description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private String address;
+		public String getAddress() {
+			return address;
+		}
+	}
 
-	public String getAddress() {
-		return address;
+	private class TextAreaForm3 implements Serializable {
+
+		@TextArea(title = "Address", placeHolder = "Fill your address please",fieldAddonRight = "@",minLenght=6,maxLenght=10, description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private String address;
+
+		public String getAddress() {
+			return address;
+		}
+	}
+
+	private class TextAreaForm implements Serializable {
+
+		@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private String address;
+
+		public String getAddress() {
+			return address;
+		}
 	}
 }
 
-class TextAreaForm3 implements Serializable {
-
-	@TextArea(title = "Address", placeHolder = "Fill your address please",fieldAddonRight = "@",minLenght=6,maxLenght=10, description = "This is textarea", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private String address;
-
-	public String getAddress() {
-		return address;
-	}
-}
-
-class TextAreaForm implements Serializable {
-
-	@TextArea(title = "Address", placeHolder = "Fill your address please", description = "This is textarea",minLenght=6,maxLenght=10, noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private String address;
-
-	public String getAddress() {
-		return address;
-	}
-}

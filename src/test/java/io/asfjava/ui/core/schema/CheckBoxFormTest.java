@@ -65,24 +65,25 @@ public class CheckBoxFormTest {
 		Assert.assertThat(json,
 				hasJsonPath("$.form[?(@.key=='color')].titleMap[?(@.name=='Green')].value", hasItem("green")));
 	}
-}
 
-class CheckBoxForm implements Serializable {
+	private class CheckBoxForm implements Serializable {
 
-	@CheckBox(title = "Color", values = { "red", "blue", "green" }, defaultvalue = "red", required = true)
-	private String color;
+		@CheckBox(title = "Color", values = { "red", "blue", "green" }, defaultvalue = "red", required = true)
+		private String color;
 
-	public String getColor() {
-		return color;
+		public String getColor() {
+			return color;
+		}
+	}
+
+	private class CheckBoxForm2 implements Serializable {
+
+		@CheckBox(title = "Color", titleMap = MyCheckBoxValues.class, defaultvalue = "red", multiple = true)
+		private String color;
+
+		public String getColor() {
+			return color;
+		}
 	}
 }
 
-class CheckBoxForm2 implements Serializable {
-
-	@CheckBox(title = "Color", titleMap = MyCheckBoxValues.class, defaultvalue = "red", multiple = true)
-	private String color;
-
-	public String getColor() {
-		return color;
-	}
-}

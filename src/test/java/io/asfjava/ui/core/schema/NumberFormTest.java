@@ -49,7 +49,6 @@ public class NumberFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type", hasItem("number")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly", hasItem(true)));
-
 	}
 
 	@Test
@@ -67,7 +66,6 @@ public class NumberFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type", hasItem("number")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly", hasItem(true)));
-
 	}
 	
 	
@@ -86,7 +84,6 @@ public class NumberFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].type", hasItem("number")));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle", hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly", hasItem(true)));
-
 	}
 	
 	@Test
@@ -102,7 +99,6 @@ public class NumberFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].fieldAddonRight",hasItem("@")));
-
 	}
 	
 	@Test
@@ -118,56 +114,56 @@ public class NumberFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].notitle",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].readonly",hasItem(true)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='number')].fieldAddonLeft",hasItem("@")));
-
 	}
 
-}
+	private class IntegerNumberForm implements Serializable {
 
-class IntegerNumberForm implements Serializable {
+		@Number(title = "Integer Number", placeHolder = "Integer Number PlaceHolder", description = "This is an integer number", noTitle = true, validationMessage = "this is a validation msg for an integer value", readOnly = true)
+		private Integer number;
 
-	@Number(title = "Integer Number", placeHolder = "Integer Number PlaceHolder", description = "This is an integer number", noTitle = true, validationMessage = "this is a validation msg for an integer value", readOnly = true)
-	private Integer number;
+		public Integer getNumber() {
+			return number;
+		}
+	}
 
-	public Integer getNumber() {
-		return number;
+	private class NumberFormRight implements Serializable {
+
+		@Number(title = "Number of children", placeHolder = "Number of children", fieldAddonRight = "@", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private Integer number;
+
+		public Integer getNumber() {
+			return number;
+		}
+	}
+
+	private class LongNumberForm implements Serializable {
+
+		@Number(title = "Long Number", placeHolder = "Long Number PlaceHolder", description = "This is a long number", noTitle = true, validationMessage = "this is a validation msg for long value", readOnly = true)
+		private Long number;
+
+		public Long getNumber() {
+			return number;
+		}
+	}
+
+	private class NumberFormLeft implements Serializable {
+
+		@Number(title = "Number of children", placeHolder = "Number of children", fieldAddonLeft = "@", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
+		private Integer number;
+
+		public Integer getNumber() {
+			return number;
+		}
+	}
+
+	private class DoubleNumberForm implements Serializable {
+
+		@Number(title = "Double Number", placeHolder = "Double Number PlaceHolder", description = "This is a double number", noTitle = true, validationMessage = "this is a validation msg for double value", readOnly = true)
+		private Double number;
+
+		public Double getNumber() {
+			return number;
+		}
 	}
 }
 
-class NumberFormRight implements Serializable {
-
-	@Number(title = "Number of children", placeHolder = "Number of children", fieldAddonRight = "@", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private Integer number;
-
-	public Integer getNumber() {
-    return number;
-  }
-}
-
-class LongNumberForm implements Serializable {
-
-	@Number(title = "Long Number", placeHolder = "Long Number PlaceHolder", description = "This is a long number", noTitle = true, validationMessage = "this is a validation msg for long value", readOnly = true)
-	private Long number;
-
-	public Long getNumber() {
-		return number;
-	}
-}
-
-class NumberFormLeft implements Serializable {
-
-	@Number(title = "Number of children", placeHolder = "Number of children", fieldAddonLeft = "@", description = "This is a number", noTitle = true, validationMessage = "this is a validation msg", readOnly = true)
-	private Integer number;
-
-	public Integer getNumber() {
-  		return number;
-	}
-}
-class DoubleNumberForm implements Serializable {
-
-	@Number(title = "Double Number", placeHolder = "Double Number PlaceHolder", description = "This is a double number", noTitle = true, validationMessage = "this is a validation msg for double value", readOnly = true)
-	private Double number;
-
-	public Double getNumber() {
-		return number;
-	}
-}

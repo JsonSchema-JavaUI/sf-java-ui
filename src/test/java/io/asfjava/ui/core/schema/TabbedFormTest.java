@@ -47,23 +47,22 @@ public class TabbedFormTest {
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.tabs)].tabs[?(@.title=='Contact')].items[*]",hasSize(1)));
 		Assert.assertThat(json, hasJsonPath("$.form[?(@.key=='webSite')]"));
 	}
-}
 
-class TabbedForm implements Serializable{
-	
-	@Tab(title = "Info", index = 1)
-	@TextField(title = "First Name", placeHolder = "Your first name", description = "This is a description for your first name field")
-	private String firstName;
-	
-	@Tab(title = "Info", index = 1)
-	@TextField(title = "Last Name", placeHolder = "Your last name")
-	private String lastName;
-	
-	@Tab(title = "Contact", index = 2)
-	@TextField(title = "eMail", placeHolder = "Your email", pattern = "^\\S+@\\S+$", validationMessage = "Your mail must be in this format jhondoe@example.com", description = "This is Text Field with pattern and validation message")
-	private String email;
-	
-	@TextField(title = "Pesonal Website",fieldAddonLeft="http://", description = "This is TextField with fieldAddonLeft")
-	private String webSite;
-}
+	private class TabbedForm implements Serializable{
 
+		@Tab(title = "Info", index = 1)
+		@TextField(title = "First Name", placeHolder = "Your first name", description = "This is a description for your first name field")
+		private String firstName;
+
+		@Tab(title = "Info", index = 1)
+		@TextField(title = "Last Name", placeHolder = "Your last name")
+		private String lastName;
+
+		@Tab(title = "Contact", index = 2)
+		@TextField(title = "eMail", placeHolder = "Your email", pattern = "^\\S+@\\S+$", validationMessage = "Your mail must be in this format jhondoe@example.com", description = "This is Text Field with pattern and validation message")
+		private String email;
+
+		@TextField(title = "Pesonal Website",fieldAddonLeft="http://", description = "This is TextField with fieldAddonLeft")
+		private String webSite;
+	}
+}
