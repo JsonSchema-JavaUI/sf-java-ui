@@ -9,25 +9,23 @@ import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 
 public final class FormDefinitionGeneratorFactory {
 
+	private static FormDefinitionGeneratorFactory instance;
+
+	public static FormDefinitionGeneratorFactory getInstance() {
+		return (instance == null)
+				? instance = new FormDefinitionGeneratorFactory()
+				: instance;
+	}
+
+	private final Map<String, FormDefinitionGenerator> generators = new ConcurrentHashMap<>();
+
+	private FormDefinitionGeneratorFactory() {}
+
 	public Optional<FormDefinitionGenerator> getGenerator(String annotationName) {
-		return Optional.ofNullable(GENERATORS.get(annotationName));
+		return Optional.ofNullable(generators.get(annotationName));
 	}
 
 	void register(Supplier<String> annotationName, FormDefinitionGenerator generator) {
-		GENERATORS.put(annotationName.get(), generator);
-	}
-
-	public static FormDefinitionGeneratorFactory getInstance() {
-		if (instance == null) {
-			instance = new FormDefinitionGeneratorFactory();
-		}
-		return instance;
-	}
-
-	private static final Map<String, FormDefinitionGenerator> GENERATORS = new ConcurrentHashMap<>();
-
-	private static FormDefinitionGeneratorFactory instance;
-
-	private FormDefinitionGeneratorFactory() {
+		generators.put(annotationName.get(), generator);
 	}
 }

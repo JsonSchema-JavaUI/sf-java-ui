@@ -1,23 +1,34 @@
 package io.asfjava.ui.core;
 
-import static io.asfjava.ui.core.logging.ErrorCode.ASF01;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.reflections.Reflections;
-
 import io.asfjava.ui.core.generators.FormDefinitionGenerator;
 import io.asfjava.ui.core.logging.ASFUILogger;
+import org.reflections.Reflections;
+
+import static io.asfjava.ui.core.logging.ErrorCode.ASF01;
 
 final class GeneratorFactoryLoader {
-	private static final List<String> PACKAGESCAN = Stream
-			.of("io.asfjava.ui.core.generators", "io.asfjava.ui.addons.generators").collect(Collectors.toList());
-	private static Reflections reflections = new Reflections(PACKAGESCAN);
+
+	private static final String[] PACKAGES_TO_SCAN = {
+			"io.asfjava.ui.core.generators",
+			"io.asfjava.ui.addons.generators"
+	};
+	private static Reflections reflections = new Reflections(PACKAGES_TO_SCAN);
+	private static GeneratorFactoryLoader instance;
+
+	static GeneratorFactoryLoader getInstance() {
+		return (instance == null)
+				? instance = new GeneratorFactoryLoader()
+				: instance;
+	}
+
+	private GeneratorFactoryLoader() {}
 
 	void load() {
-		reflections.getSubTypesOf(FormDefinitionGenerator.class).forEach(instance::register);
+		reflections.getSubTypesOf(FormDefinitionGenerator.class).forEach(this::register);
+	}
+
+	void unload() {
+		ASFUILogger.getLogger().info("I'm unloader");
 	}
 
 	private void register(Class<? extends FormDefinitionGenerator> subType) {
@@ -29,20 +40,4 @@ final class GeneratorFactoryLoader {
 			ASFUILogger.getLogger().error(ASF01, e);
 		}
 	}
-
-	void unload() {
-		ASFUILogger.getLogger().info("I'm unloader");
-	}
-
-	static GeneratorFactoryLoader getInstance() {
-		if (instance == null)
-			instance = new GeneratorFactoryLoader();
-		return instance;
-	}
-
-	private static GeneratorFactoryLoader instance;
-
-	private GeneratorFactoryLoader() {
-	}
-
 }

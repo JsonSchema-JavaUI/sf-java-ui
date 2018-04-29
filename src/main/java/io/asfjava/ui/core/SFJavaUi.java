@@ -6,7 +6,6 @@ public final class SFJavaUi {
 		GeneratorFactoryLoader.getInstance().load();
 		SchemaDecoratorLoader.getInstance().load();
 	}
-	
-	private SFJavaUi() {
-	}
+
+	private SFJavaUi() {}
 }

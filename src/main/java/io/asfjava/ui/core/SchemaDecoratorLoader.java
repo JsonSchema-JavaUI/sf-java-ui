@@ -1,25 +1,34 @@
 package io.asfjava.ui.core;
 
-import static io.asfjava.ui.core.logging.ErrorCode.ASF01;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.reflections.Reflections;
-
 import io.asfjava.ui.core.logging.ASFUILogger;
 import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
+import org.reflections.Reflections;
+
+import static io.asfjava.ui.core.logging.ErrorCode.ASF01;
 
 final class SchemaDecoratorLoader {
 
-	private static final List<String> PACKAGESCAN = Stream
-			.of("io.asfjava.ui.core.schema.decorators", "io.asfjava.ui.addons.schema.decorators")
-			.collect(Collectors.toList());
-	private static Reflections reflections = new Reflections(PACKAGESCAN);
+	private static final String[] PACKAGES_TO_SCAN = {
+			"io.asfjava.ui.core.schema.decorators",
+			"io.asfjava.ui.addons.schema.decorators"
+	};
+	private static Reflections reflections = new Reflections(PACKAGES_TO_SCAN);
+	private static SchemaDecoratorLoader instance;
+
+	static SchemaDecoratorLoader getInstance() {
+		return (instance == null)
+				? instance = new SchemaDecoratorLoader()
+				: instance;
+	}
+
+	private SchemaDecoratorLoader() {}
 
 	void load() {
-		reflections.getSubTypesOf(SchemaDecorator.class).forEach(instance::register);
+		reflections.getSubTypesOf(SchemaDecorator.class).forEach(this::register);
+	}
+
+	void unload() {
+		ASFUILogger.getLogger().info("I'm unloader");
 	}
 
 	private void register(Class<? extends SchemaDecorator> subType) {
@@ -29,20 +38,5 @@ final class SchemaDecoratorLoader {
 		} catch (InstantiationException | IllegalAccessException e) {
 			ASFUILogger.getLogger().error(ASF01, e);
 		}
-	}
-
-	void unload() {
-		ASFUILogger.getLogger().info("I'm unloader");
-	}
-
-	static SchemaDecoratorLoader getInstance() {
-		if (instance == null)
-			instance = new SchemaDecoratorLoader();
-		return instance;
-	}
-
-	private static SchemaDecoratorLoader instance;
-
-	private SchemaDecoratorLoader() {
 	}
 }
