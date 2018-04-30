@@ -5,10 +5,15 @@ import com.fasterxml.jackson.module.jsonSchema.types.StringSchema;
 
 class CustomStringSchema extends StringSchema {
 
+	private final SchemaDecoratorHandler schemaDecoratorHandler;
+
+	CustomStringSchema(SchemaDecoratorHandler schemaDecoratorHandler) {
+		this.schemaDecoratorHandler = schemaDecoratorHandler;
+	}
+
 	@Override
 	public void enrichWithBeanProperty(BeanProperty beanProperty) {
 		super.enrichWithBeanProperty(beanProperty);
-		SchemaDecoratorUtil.get().decorate(beanProperty, this);
+		schemaDecoratorHandler.decorate(beanProperty, this);
 	}
-
 }
