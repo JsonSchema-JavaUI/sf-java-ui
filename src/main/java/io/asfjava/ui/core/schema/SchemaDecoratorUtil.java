@@ -12,7 +12,7 @@ final class SchemaDecoratorUtil {
 	void decorate(BeanProperty beanProperty, JsonSchema simpleTypeSchema) {
 		Iterable<Annotation> it = beanProperty.getMember().annotations();
 		it.forEach(
-				annotation -> SchemaDecoratorFactory.getInstance().getDecorator(annotation.annotationType().getName())
+				annotation -> SchemaDecoratorFactory.getInstance().get(annotation.annotationType().getName())
 						.ifPresent(decorator -> decorator.customizeSchema(beanProperty, simpleTypeSchema)));
 	}
 

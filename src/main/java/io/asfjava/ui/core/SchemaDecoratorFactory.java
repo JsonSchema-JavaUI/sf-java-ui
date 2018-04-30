@@ -2,12 +2,7 @@ package io.asfjava.ui.core;
 
 import io.asfjava.ui.core.schema.decorators.SchemaDecorator;
 
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Supplier;
-
-public final class SchemaDecoratorFactory {
+public final class SchemaDecoratorFactory extends SimpleFactory<String, SchemaDecorator> {
 
 	private static SchemaDecoratorFactory instance;
 
@@ -17,15 +12,5 @@ public final class SchemaDecoratorFactory {
 				: instance;
 	}
 
-	private final Map<String, SchemaDecorator> decorators = new ConcurrentHashMap<>();
-
 	private SchemaDecoratorFactory() {}
-
-	public Optional<SchemaDecorator> getDecorator(String annotationName) {
-		return Optional.ofNullable(decorators.get(annotationName));
-	}
-
-	void register(Supplier<String> annotationName, SchemaDecorator generator) {
-		decorators.put(annotationName.get(), generator);
-	}
 }
