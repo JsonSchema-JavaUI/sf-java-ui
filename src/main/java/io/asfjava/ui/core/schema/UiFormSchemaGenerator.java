@@ -41,7 +41,20 @@ public final class UiFormSchemaGenerator {
 	private static final String KEY_TITLE = "title";
 	private static final String KEY_TYPE = "type";
 	private static final String KEY_ITEMS = "items";
+
 	private static UiFormSchemaGenerator instance;
+
+	public static UiFormSchemaGenerator get() {
+		return (instance == null)
+				? instance = new UiFormSchemaGenerator()
+				: instance;
+	}
+
+	private final SchemaDecoratorHandler schemaDecoratorHandler;
+
+	private UiFormSchemaGenerator() {
+		schemaDecoratorHandler = new SchemaDecoratorHandler();
+	}
 
 	public UiForm generate(Class<? extends Serializable> formDto) throws JsonMappingException {
 		Field[] declaredFields = formDto.getDeclaredFields();
@@ -190,7 +203,7 @@ public final class UiFormSchemaGenerator {
 	}
 
 	private JsonSchemaGenerator initSchemaGen(ObjectMapper mapper) {
-		return new JsonSchemaGenerator(mapper, new CustomSchemaFactoryWrapper());
+		return new JsonSchemaGenerator(mapper, new CustomSchemaFactoryWrapper(schemaDecoratorHandler));
 	}
 
 	private void groupFieldsByTab(Map<Field, JsonNode> nodes, Field field, Map<String, List<JsonNode>> groupedFields) {
@@ -233,15 +246,5 @@ public final class UiFormSchemaGenerator {
 		return nodes.entrySet().stream().sorted(tabIndexComparator).collect(LinkedHashMap::new,
 				(result, currentElement) -> result.put(currentElement.getKey(), currentElement.getValue()),
 				Map::putAll);
-	}
-
-	public static UiFormSchemaGenerator get() {
-		if (instance == null) {
-			instance = new UiFormSchemaGenerator();
-		}
-		return instance;
-	}
-
-	private UiFormSchemaGenerator() {
 	}
 }
